@@ -14,8 +14,8 @@ const Header = () => {
           0000
           </div> */}
         <button
-        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded border-2 border-gray-300 focus:outline-none focus:ring-gray-300 transition duration-300 ease-in-out wave">
-          <span className="text-gray-300 font-sans font-light border-gray-500 underline">
+        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded border-2 border-gray-300 focus:outline-none focus:ring-gray-300 transition duration-300 ease-in-out group">
+          <span className="text-gray-300 font-sans font-light border-gray-500 underline group-hover:font-semibold">
             About
           </span>
         </button>
