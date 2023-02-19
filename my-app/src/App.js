@@ -10,6 +10,7 @@ import React, { useEffect, useState }  from "react";
 
 const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
+  const [faves, setFaves] = useState([]); 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
@@ -31,55 +32,36 @@ const App = () => {
       }
     }
   })
-//     const getData = async ()=> {
-//       if
 
-//     }
-//   })
-//   if (!localStorage.getItem("movies")) {
-//     const api = "https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
-//     fetch(api)
-//         .then(res => res.json())
-//         .then(data => {
-//             loadData(data)
-//         })
-// }
-//   useEffect(  () => {
-//     const getData = async () => {
-//       try {
-//         const url = "https://www.randyconnolly.com/funwebdev/3rd/api/travel/images.php?iso=gb";
-//         const response = await fetch(url);
-//         const data = await response.json();
-//         setPhotos(data);
-//       }
-//       catch (err) {
-//         console.error(err);
-//       }
-//     };
-//     // invoke the async function
-//     getData();
-//   }, [] );
+
+const favHandler = (movieId) => {
+  console.log("faves before change", faves)
+  // check if the movie is already in the faves array
+  const isFave = faves.includes(movieId);
+  if(isFave){
+    // if it is then remove it 
+    const newFaves = faves.filter(id=>id!==movieId);
+    setFaves(newFaves);
+  }else{
+    // if it is not then add it 
+    const newFaves = [...faves, movieId];
+    console.log("faves after change", newFaves)
+    setFaves(newFaves);
+  }
+
+  
+  
+}
+
 return (
     <div className="App">
       <Header className="App-header" />
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-     <Routes>
-        <Route path="/" element={<MovieSearch />} />
-        <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} />} />
-        <Route path="/:movieId" element={<MovieDetails />} />
-        {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
-     </Routes> 
+      <Routes>
+          <Route path="/" element={<MovieSearch />} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler}/>} />
+          <Route path="/:movieId" element={<MovieDetails />} />
+          {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
+      </Routes> 
     </div>
   );
 }
