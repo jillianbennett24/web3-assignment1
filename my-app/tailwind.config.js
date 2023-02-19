@@ -5,11 +5,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-    //   backgroundImage: {
-    //     'hero-pattern': "url('../res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg)",
-    //     'footer-texture': "url('/img/footer-texture.png')"
-    //  },
-    }
-  },
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" }
+        }
+      },
+      animation: {
+        wiggle: "wiggle 1s ease-in-out 200ms"
+      }
+    },
   plugins: [],
+  }
 }

@@ -13,7 +13,7 @@ const App = () => {
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
-      const temp= localStorage.getItem("Key");
+      const temp = localStorage.getItem("Key");
       // if it there?
       if(temp){
         const mdata = JSON.parse(temp);

@@ -6,6 +6,7 @@ const MovieBrowser = (props) => {
                
             </h1>
             <p>this is the Movie title: {props.sampleMovie.title}</p>
+            <p>{JSON.stringify(props.sampleMovie)}</p>
         </div>
     )};
 
