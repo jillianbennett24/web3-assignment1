@@ -76,7 +76,7 @@ return (
         </a> */}
      <Routes>
         <Route path="/" element={<MovieSearch />} />
-        <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} />} />
+        <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} />} />
         <Route path="/:movieId" element={<MovieDetails />} />
         {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
      </Routes> 
