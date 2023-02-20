@@ -1,7 +1,7 @@
 import FavHeart from "./FavHeart";
 
 const MovieListItem = (props) => {
-  const posterUrl = `https://image.tmdb.org/t/p/w92/${props.movie.poster}`;
+  const posterUrl = `https://image.tmdb.org/t/p/w92/${props.movie.poster}`
   
   const favClickHandler = () => {
     console.log(props)
@@ -11,9 +11,9 @@ const MovieListItem = (props) => {
   }
   return (<tr>
             <td className="px-6 py-4 whitespace-nowrap bg-black bg-opacity-10">
-              <img src={posterUrl} alt={props.movie.title} />
+              <img src={posterUrl} alt={props.movie.title} className="mx-auto"/>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-normal  max-w-lg">
               {props.movie.title}
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
@@ -22,7 +22,7 @@ const MovieListItem = (props) => {
             <td className="px-6 py-4 whitespace-nowrap">
               {props.movie.ratings.average}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4">
               {props.movie.ratings.popularity.toFixed()}
             </td>
             <td className="px-6 py-4 whitespace-nowrap" onClick={favClickHandler}>

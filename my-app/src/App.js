@@ -19,7 +19,9 @@ const App = () => {
       const temp = localStorage.getItem("Key");
       // if it there?
       if(temp){
-        const mdata = JSON.parse(temp);
+        let mdata = JSON.parse(temp);
+        // mdata.sort((a,b)=>a.title.localeCompare(b.title));
+        sortMovies(mdata, "title");
         setOgMovies(mdata);
       }else{
         // if we dont have data then we need to fetch it 
@@ -28,12 +30,27 @@ const App = () => {
         .then(data=>{
           // save in local storage 
           localStorage.setItem("Key", JSON.stringify(data))
+          // data.sort((a,b)=>a.title.localeCompare(b.title));
+          sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
         })
       }
     }
+    // check if we have faves in session storage
+    const tempFaves = JSON.parse(localStorage.getItem("faves"));
+    
+    if(faves.length == 0 && tempFaves.length > 0){
+      setFaves(tempFaves);
+    }
   })
+
+  const sortMovies = (movies, sortType, reverse=false) => {    
+    if(!reverse)
+    movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
+    else
+    movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
+  }
 
 
 const favHandler = (movieId) => {
@@ -48,6 +65,7 @@ const favHandler = (movieId) => {
     // if it is not then add it 
     const newFaves = [...faves, movieId];
     console.log("faves after change", newFaves)
+    localStorage.setItem("faves", JSON.stringify(newFaves));
     setFaves(newFaves);
   }
 }
