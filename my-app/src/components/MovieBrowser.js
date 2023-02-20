@@ -3,7 +3,7 @@ import FavoritesList from "./FavoritesList";
 import Filters from "./Filters";
 
 const MovieBrowser = (props) => {
-    console.log('MovieBrowser props',props)
+    //console.log('MovieBrowser props',props)
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">

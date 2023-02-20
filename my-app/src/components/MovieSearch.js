@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 
-const MovieSearch = () => {
+const MovieSearch = (props) => {
     const [effect, setEffect] = useState(false);
+    console.log('MovieSearch props',props)
     
 
     
@@ -22,7 +23,7 @@ const MovieSearch = () => {
                                 </h1>
                                 {/* button style from https://v1.tailwindcss.com/components/buttons
                                 button animation from https://tailwind-elements.com/docs/standard/components/buttons/ */}
-                                <Link to="/movies">
+                                <Link to="/movies" onClick={props.resetToOGData}>
                                     <button className=
                                     // {`${
                                     //         effect && "animate-wiggle"
@@ -37,13 +38,8 @@ const MovieSearch = () => {
                                         Browse All
                                     </button>
                                 </Link>
-                                <SearchForm />
-                               {/* <form onSubmit={doSearch}>
-                                <input name="searchInput" type="text" placeholder="Search for a movie" className="border-2 border-slate-400 rounded-md p-2 my-2 mt-10" value={searchValue} onChange={searchChange} />
-                                <button type="submit" value="Submit" className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-600 hover:border-blue-500 rounded mt-2 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " >
-                                    Search
-                                </button >
-                                </form> */}
+                                <SearchForm searchForMovieTitle={props.searchForMovieTitle}/>
+                               
                             </div>
                         </div>
                     </aside>
