@@ -3,13 +3,15 @@ import FavHeart from "./FavHeart";
 const MovieListItem = (props) => {
   const posterUrl = `https://image.tmdb.org/t/p/w92/${props.movie.poster}`
   
-  const favClickHandler = () => {
-    console.log(props)
+  const favClickHandler = (e) => {
+    e.stopPropagation();
     props.favHandler(props.movie.id);
-    // const movie = ogMovies.find(movie => movie.id === movieId);
     
   }
-  return (<tr>
+  const rowClickHandler = () => {
+    console.log(props.movie.id)
+  }
+  return (<tr onClick={rowClickHandler}>
             <td className="px-6 py-4 whitespace-nowrap bg-black bg-opacity-10">
               <img src={posterUrl} alt={props.movie.title} className="mx-auto"/>
               </td>
@@ -25,7 +27,7 @@ const MovieListItem = (props) => {
             <td className="px-6 py-4">
               {props.movie.ratings.popularity.toFixed()}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap" onClick={favClickHandler}>
+            <td className="px-6 py-4 whitespace-nowrap" onClick={(e)=>favClickHandler(e)}>
              <FavHeart isFav={props.faves.includes(props.movie.id)}/>
               
              
