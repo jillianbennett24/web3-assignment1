@@ -43,8 +43,11 @@ const App = () => {
     }
   })
 
-  const sortMovies = (movies, sortType) => {    
+  const sortMovies = (movies, sortType, reverse=false) => {    
+    if(!reverse)
     movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
+    else
+    movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
   }
 
 
