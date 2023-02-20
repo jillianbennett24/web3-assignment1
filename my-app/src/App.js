@@ -17,7 +17,10 @@ const App = () => {
       const temp = localStorage.getItem("Key");
       // if it there?
       if(temp){
-        const mdata = JSON.parse(temp);
+        let mdata = JSON.parse(temp);
+        mdata.sort((a,b)=>a.title.localeCompare(b.title));
+        // mdata = sortMovies(mdata, "title");
+        console.log(mdata)
         setOgMovies(mdata);
       }else{
         // if we dont have data then we need to fetch it 
@@ -26,6 +29,8 @@ const App = () => {
         .then(data=>{
           // save in local storage 
           localStorage.setItem("Key", JSON.stringify(data))
+          data.sort((a,b)=>a.title.localeCompare(b.title));
+          // sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
         })
@@ -39,6 +44,11 @@ const App = () => {
     }
   })
 
+  // not sure why this isn't working
+  const sortMovies = (movies, sortType) => {
+    movies = movies.sort((a,b)=>{a[sortType].localeCompare(b[sortType])})
+    return movies;
+  }
 
 const favHandler = (movieId) => {
   console.log("faves before change", faves)
