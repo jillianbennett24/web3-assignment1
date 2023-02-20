@@ -12,6 +12,7 @@ const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
   const [faves, setFaves] = useState([]); 
   const [searchValue, setSearchValue]=useState('');
+  const [movies, setMovies]=useState([]);
 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
@@ -34,24 +35,54 @@ const App = () => {
           sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
+          // setMovies(ogMovies); // jill added to test brain idk if its right spot 
         })
+        .catch(err => console.log(err))
       }
     }
     // check if we have faves in session storage
     const tempFaves = JSON.parse(localStorage.getItem("faves"));
-    
-    if(faves.length == 0 && tempFaves.length > 0){
+    console.log(tempFaves)
+    if(!faves && tempFaves){
       setFaves(tempFaves);
     }
   })
-
+  const resetToOGData=()=>{
+    
+      // first retrieve from local storage 
+      const temp = localStorage.getItem("Key");
+        let mdata = JSON.parse(temp);
+        // mdata.sort((a,b)=>a.title.localeCompare(b.title));
+        sortMovies(mdata, "title");
+        setOgMovies(mdata);
+      
+  }
+  const searchForMovieTitle=(input)=>{
+    const searchResultsArray = ogMovies.filter(movie => (movie.title).toLowerCase().includes(input.toLowerCase()));
+    if(searchResultsArray.length==0){
+      alert("Array is empty:(");
+      setOgMovies('')
+    }else{
+      console.log("this is the searchResultsArray: ",searchResultsArray)
+      setOgMovies(searchResultsArray)
+    console.log(ogMovies)
+    }
+    
+  }
+  
   const sortMovies = (movies, sortType, reverse=false) => {    
     if(!reverse)
     movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
     else
     movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
   }
-
+// const populateMoviesArray=()=>{
+//   console.log("this is OGmovies:",ogMovies)
+//   console.log("this is movies array before: ", movies)
+  
+//   //setOgMovies(ogMovies);
+//   console.log("this is movies array after: ", movies)
+// }
 
 const favHandler = (movieId) => {
   console.log("faves before change", faves)
@@ -72,11 +103,12 @@ const favHandler = (movieId) => {
 
 
 
+
 return (
     <div className="App">
       <Header className="App-header" />
       <Routes>
-          <Route path="/" element={<MovieSearch />} />
+          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}/>} />
           <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler}/>} />
           <Route path="/:movieId" element={<MovieDetails />} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
