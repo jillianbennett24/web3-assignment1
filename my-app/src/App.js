@@ -31,6 +31,12 @@ const App = () => {
         })
       }
     }
+    // check if we have faves in session storage
+    const tempFaves = JSON.parse(localStorage.getItem("faves"));
+    
+    if(faves.length == 0 && tempFaves.length > 0){
+      setFaves(tempFaves);
+    }
   })
 
 
@@ -46,6 +52,7 @@ const favHandler = (movieId) => {
     // if it is not then add it 
     const newFaves = [...faves, movieId];
     console.log("faves after change", newFaves)
+    localStorage.setItem("faves", JSON.stringify(newFaves));
     setFaves(newFaves);
   }
 

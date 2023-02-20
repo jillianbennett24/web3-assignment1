@@ -2,7 +2,7 @@ import MovieListItem from './MovieListItem';
 
 const MovieList = (props) => {
   return (
-    <div className="max-w-5xl mx-[100]">
+    <div className="max-w-5xl mx-auto">
     <table className="w-full divide-y divide-gray-200 bg-black bg-opacity-25">
       <thead className="sticky top-0 bg-black mx-auto bg-opacity-50">
         <tr>
