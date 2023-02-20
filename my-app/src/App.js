@@ -10,7 +10,7 @@ import React, { useEffect, useState }  from "react";
 
 const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
-  const [faves, setFaves] = useState([]); 
+  const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves"))); 
   const [searchValue, setSearchValue]=useState('');
   const [movies, setMovies]=useState([]);
 
@@ -41,11 +41,11 @@ const App = () => {
       }
     }
     // check if we have faves in session storage
-    const tempFaves = JSON.parse(localStorage.getItem("faves"));
-    console.log(tempFaves)
-    if(!faves && tempFaves){
-      setFaves(tempFaves);
-    }
+    // const tempFaves = JSON.parse(localStorage.getItem("faves"));
+    
+    // if(faves.length == 0 && tempFaves.length > 0){
+    //   setFaves(tempFaves);
+    // }
   })
   const resetToOGData=()=>{
     
@@ -72,9 +72,9 @@ const App = () => {
   
   const sortMovies = (movies, sortType, reverse=false) => {    
     if(!reverse)
-    movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
+      movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
     else
-    movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
+      movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
   }
 // const populateMoviesArray=()=>{
 //   console.log("this is OGmovies:",ogMovies)
@@ -91,11 +91,13 @@ const favHandler = (movieId) => {
   if(isFave){
     // if it is then remove it 
     const newFaves = faves.filter(id=>id!==movieId);
+    console.log("faves after remove", newFaves)
+    localStorage.setItem("faves", JSON.stringify(newFaves));
     setFaves(newFaves);
   }else{
     // if it is not then add it 
     const newFaves = [...faves, movieId];
-    console.log("faves after change", newFaves)
+    console.log("faves after add", newFaves)
     localStorage.setItem("faves", JSON.stringify(newFaves));
     setFaves(newFaves);
   }
