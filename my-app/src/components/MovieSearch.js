@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SearchForm from './SearchForm';
 
 const MovieSearch = () => {
     const [effect, setEffect] = useState(false);
+    
+
+    
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen">
             {/* layout structure from https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k */}
@@ -33,10 +37,13 @@ const MovieSearch = () => {
                                         Browse All
                                     </button>
                                 </Link>
-                                <input name="searchInput" type="text" placeholder="Search for a movie" className="border-2 border-slate-400 rounded-md p-2 my-2 mt-10" />
-                                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-600 hover:border-blue-500 rounded mt-2 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " >
+                                <SearchForm />
+                               {/* <form onSubmit={doSearch}>
+                                <input name="searchInput" type="text" placeholder="Search for a movie" className="border-2 border-slate-400 rounded-md p-2 my-2 mt-10" value={searchValue} onChange={searchChange} />
+                                <button type="submit" value="Submit" className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-600 hover:border-blue-500 rounded mt-2 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " >
                                     Search
-                                </button>
+                                </button >
+                                </form> */}
                             </div>
                         </div>
                     </aside>

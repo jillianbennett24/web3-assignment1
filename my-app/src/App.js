@@ -11,6 +11,8 @@ import React, { useEffect, useState }  from "react";
 const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
   const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves"))); 
+  const [searchValue, setSearchValue]=useState('');
+
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
@@ -68,10 +70,9 @@ const favHandler = (movieId) => {
     localStorage.setItem("faves", JSON.stringify(newFaves));
     setFaves(newFaves);
   }
-
-  
-  
 }
+
+
 
 return (
     <div className="App">
