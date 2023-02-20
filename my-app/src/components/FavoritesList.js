@@ -1,8 +1,14 @@
 const FavoritesList = (props) => {
+    console.log("faves",props.faves)
     const favMovies = props.faves.map((fav) => {
-        return props.movies.find((movie) => movie.id === fav)
+        console.log("fav",typeof fav)
+        console.log(props.movies)
+        return props.movies.find((movie) => {
+            console.log(movie)
+            return movie.id == fav
+        })
         });
-    console.log(favMovies)
+    console.log("faveMovies",favMovies)
     
     return (
     <div className="mt-8">
