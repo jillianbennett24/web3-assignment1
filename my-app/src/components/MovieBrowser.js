@@ -14,9 +14,9 @@ const MovieBrowser = (props) => {
                                 <Filters />
                             </div>
                         </div>
-                        <div className="mx-auto min-w-fit flex-1 overflow-y-auto">
+                        {/* <div className=" min-w-fit mx-auto flex-1 border-red-500 border-solid border-2"> */}
                             <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler}/>
-                        </div>
+                        {/* </div> */}
                         <div className="min-w-1/12 pl-4">
                             <div className="sticky top-0">
                                 <FavoritesList faves={props.faves} movies={props.movies}/>
