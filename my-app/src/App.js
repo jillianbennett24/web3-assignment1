@@ -61,7 +61,8 @@ const App = () => {
     const searchResultsArray = ogMovies.filter(movie => (movie.title).toLowerCase().includes(input.toLowerCase()));
     if(searchResultsArray.length==0){
       alert("Array is empty:(");
-      setOgMovies('')
+      console.log("og movies in search for movie titile :" , ogMovies)
+      setOgMovies(searchResultsArray)
     }else{
       console.log("this is the searchResultsArray: ",searchResultsArray)
       setOgMovies(searchResultsArray)
@@ -83,7 +84,9 @@ const App = () => {
 //   //setOgMovies(ogMovies);
 //   console.log("this is movies array after: ", movies)
 // }
-
+const checkEmpty =()=>{
+  console.log("do something");
+}
 const favHandler = (movieId) => {
   console.log("faves before change", faves)
   // check if the movie is already in the faves array
@@ -110,7 +113,7 @@ return (
     <div className="App">
       <Header className="App-header" />
       <Routes>
-          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}/>} />
+          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData} checkEmpty={checkEmpty}/>} />
           <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler}/>} />
           <Route path="/:movieId" element={<MovieDetails />} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}

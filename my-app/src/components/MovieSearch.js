@@ -6,6 +6,7 @@ const MovieSearch = (props) => {
     const [effect, setEffect] = useState(false);
     console.log('MovieSearch props',props)
     
+   
 
     
     return (
@@ -38,7 +39,7 @@ const MovieSearch = (props) => {
                                         Browse All
                                     </button>
                                 </Link>
-                                <SearchForm searchForMovieTitle={props.searchForMovieTitle}/>
+                                <SearchForm searchForMovieTitle={props.searchForMovieTitle} checkEmpty={props.checkEmpty}/>
                                
                             </div>
                         </div>
