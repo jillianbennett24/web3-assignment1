@@ -12,7 +12,7 @@ const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
   const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves"))); 
   const [searchValue, setSearchValue]=useState('');
-  const [movies, setMovies]=useState([]);
+  // const [movies, setMovies]=useState([]);
 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
@@ -72,10 +72,37 @@ const App = () => {
   }
   
   const sortMovies = (movies, sortType, reverse=false) => {    
-    if(!reverse)
-      movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
-    else
-      movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
+    if (sortType === "title"){
+      if(!reverse)
+        movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
+      else
+        movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
+      
+    } else if (sortType === "year"){
+      movies.sort((a,b)=>{
+        const year1 = parseInt(a["release_date"].slice(0,4));
+        const year2 = parseInt(b["release_date"].slice(0,4));
+        return year2 - year1;
+    })
+
+    } else if (sortType === "rating"){
+      movies.sort((a,b)=>{
+        const rating1 = parseFloat(a.ratings.average);
+        const rating2 = parseFloat(b.ratings.average);
+        return rating2 - rating1;
+      })
+
+    } else if (sortType === "popularity") {
+      movies.sort((a, b) => {
+        const popularity1 = parseInt(a.ratings.popularity);
+        const popularity2 = parseInt(b.ratings.popularity);
+        return popularity2 - popularity1;
+      })
+    }
+
+  // setOgMovies(movies);
+    setOgMovies([...movies])
+  
   }
 // const populateMoviesArray=()=>{
 //   console.log("this is OGmovies:",ogMovies)
@@ -114,7 +141,7 @@ return (
       <Header className="App-header" />
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData} checkEmpty={checkEmpty}/>} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler}/>} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler} sortMovies={sortMovies}/>} />
           <Route path="/:movieId" element={<MovieDetails />} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
