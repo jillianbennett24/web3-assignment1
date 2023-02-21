@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
 
 const MovieSearch = (props) => {
     const [effect, setEffect] = useState(false);
     console.log('MovieSearch props',props)
-    
-   
-
+    //props.resetToOGData()
+//    useEffect(()=>{
+//             props.resetToOGData()
+//     },[props.resetToOGData()])
     
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen">
@@ -39,7 +40,7 @@ const MovieSearch = (props) => {
                                         Browse All
                                     </button>
                                 </Link>
-                                <SearchForm searchForMovieTitle={props.searchForMovieTitle} checkEmpty={props.checkEmpty}/>
+                                <SearchForm searchForMovieTitle={props.searchForMovieTitle} />
                                
                             </div>
                         </div>

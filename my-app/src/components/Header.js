@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import logo from '../logo.jpeg';
 
 
-const Header = () => {
+const Header = (props) => {
   return (
     <header>
       <div className="bg-black h-16 flex items-center justify-center">
-        <Link to="/">
+        <Link to="/" onClick={props.resetToOGData}>
           {/* logo from https://www.pinterest.ca/pin/92394229839498359/ */}
           <img src={logo} className="w-24 hover:cursor-pointer border-r-2 border-gray-300 pr-4 mr-9 h-12"></img>
         </Link>

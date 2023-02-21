@@ -47,6 +47,7 @@ const App = () => {
     //   setFaves(tempFaves);
     // }
   })
+
   const resetToOGData=()=>{
     
       // first retrieve from local storage 
@@ -59,6 +60,7 @@ const App = () => {
   }
   const searchForMovieTitle=(input)=>{
     const searchResultsArray = ogMovies.filter(movie => (movie.title).toLowerCase().includes(input.toLowerCase()));
+    console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length==0){
       alert("Array is empty:(");
       console.log("og movies in search for movie titile :" , ogMovies)
@@ -84,9 +86,7 @@ const App = () => {
 //   //setOgMovies(ogMovies);
 //   console.log("this is movies array after: ", movies)
 // }
-const checkEmpty =()=>{
-  console.log("do something");
-}
+
 const favHandler = (movieId) => {
   console.log("faves before change", faves)
   // check if the movie is already in the faves array
@@ -111,10 +111,10 @@ const favHandler = (movieId) => {
 
 return (
     <div className="App">
-      <Header className="App-header" />
+      <Header className="App-header" resetToOGData={resetToOGData}/>
       <Routes>
-          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData} checkEmpty={checkEmpty}/>} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler}/>} />
+          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler} searchForMovieTitle={searchForMovieTitle}/>} />
           <Route path="/:movieId" element={<MovieDetails />} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
