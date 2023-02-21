@@ -5,10 +5,7 @@ import SearchForm from './SearchForm';
 const MovieSearch = (props) => {
     const [effect, setEffect] = useState(false);
     console.log('MovieSearch props',props)
-    //props.resetToOGData()
-//    useEffect(()=>{
-//             props.resetToOGData()
-//     },[props.resetToOGData()])
+  
     
     // useEffect(() => {
     //     props.resetToOGData();
