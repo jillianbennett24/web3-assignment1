@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 const FavoritesList = (props) => {
     const [showFaves, setShowFaves] = useState(true);
     const originalMovies = JSON.parse(localStorage.getItem("Key"));
-    console.log("faves",props.faves)
+    //console.log("faves",props.faves)
     const favMovies = props.faves.map((fav) => {
-        console.log("fav",typeof fav)
-        console.log(props.movies)
+        //console.log("fav",typeof fav)
+        //console.log(props.movies)
         return originalMovies.find((movie) => {
-            console.log(movie)
+            //console.log(movie)
             return movie.id == fav
         })
         });
-    console.log("faveMovies",favMovies)
+    //console.log("faveMovies",favMovies)
     
     const toggleFaves = () => {
         setShowFaves(!showFaves);
