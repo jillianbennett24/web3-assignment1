@@ -6,6 +6,7 @@ import MovieSearch from './components/MovieSearch';
 import MovieBrowser from './components/MovieBrowser';
 import MovieDetails from './components/MovieDetails';
 import React, { useEffect, useState }  from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const App = () => {
@@ -139,6 +140,7 @@ const favHandler = (movieId) => {
 return (
     <div className="App">
       <Header className="App-header" resetToOGData={resetToOGData}/>
+      {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
           <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} faves={faves} favHandler={favHandler} searchForMovieTitle={searchForMovieTitle} sortMovies={sortMovies}/>} />
