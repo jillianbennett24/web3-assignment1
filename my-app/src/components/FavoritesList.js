@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HiX } from 'react-icons/hi';
 
 const FavoritesList = (props) => {
     const [showFaves, setShowFaves] = useState(true);
@@ -14,6 +15,11 @@ const FavoritesList = (props) => {
         });
     //console.log("faveMovies",favMovies)
     
+    const handleFaveClick = (movieId) => {
+        console.log("clicked fave", movieId)
+        props.removeFav(movieId);
+    }
+
     const toggleFaves = () => {
         setShowFaves(!showFaves);
     }
@@ -29,8 +35,11 @@ const FavoritesList = (props) => {
         {favMovies.map((movie) => {
             return (
                 <li key={movie.id} className="mt-4">
-                    <img src={`https://image.tmdb.org/t/p/w92/${movie.poster}`} title={movie.title} alt={movie.title} className=" max-h-16"/>
+                    <img src={`https://image.tmdb.org/t/p/w92/${movie.poster}`} title={movie.title} alt={movie.title} className=" max-h-24"/>
                     {/* <span>{movie.title} ({movie.release_date.slice(0, 4)})</span> */}
+                    <div className="relative left-12 bottom-24 w-fit p-1 cursor-pointer hover:bg-red-500 rounded z-1 -mb-6">
+                        <HiX size={12} className="text-white" onClick={() => handleFaveClick(movie.id)} />
+                    </div>
                 </li>
             );
             })

@@ -18,7 +18,7 @@ const MovieBrowser = (props) => {
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4">
                             <div className="sticky top-0">
-                                <FavoritesList faves={props.faves} movies={props.movies}/>
+                                <FavoritesList faves={props.faves} movies={props.movies} removeFav={props.favHandler}/>
                             </div>
                         </div>
                     </div> 
