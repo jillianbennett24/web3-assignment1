@@ -3,7 +3,7 @@ import { HiX } from 'react-icons/hi';
 
 const FavoritesList = (props) => {
     const [showFaves, setShowFaves] = useState(true);
-    const originalMovies = JSON.parse(localStorage.getItem("Key"));
+    const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
     //console.log("faves",props.faves)
     const favMovies = props.faves.map((fav) => {
         //console.log("fav",typeof fav)
