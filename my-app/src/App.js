@@ -15,14 +15,6 @@ const App = () => {
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
 
-  // const [movies, setMovies]=useState([]);
-   //const [gSelectionList, setGSelectionList]= useState([]);
-
-  const genres = ogMovies.map(movie => movie.details.genres).flat().map(genre => genre ? genre.name : '' )
-  const uniqueGenres = [...new Set(genres)]
-  uniqueGenres.sort((a,b)=>a.localeCompare(b));
-  console.log('genres',uniqueGenres)
-
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
@@ -72,7 +64,7 @@ const App = () => {
     console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length===0){
       alert("Array is empty:(");
-      console.log("og movies in search for movie titile :" , ogMovies)
+      console.log("og movies in search for movie titile :" , ogMovies);
       setOgMovies(searchResultsArray)
     }else{
       console.log("this is the searchResultsArray: ",searchResultsArray)
@@ -136,57 +128,65 @@ const favHandler = (movieId) => {
 
 const onGenreSelect = (selected)=>{
   // attempt 7?
-  console.log("this option was selected: ", selected)
+ // console.log("this option was selected: ", selected)
 
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
   //console.log("this is the ogMovies in onGenreSelect: " ,ogMovies);
   const moviesFilteredbyGenre = originalMovies.filter(movie=> { 
     if(movie.details.genres){ // if there is a movies genre array in the movie object 
-      console.log(movie.details.genres) // prints out movie objects genres 
-      console.log(movie.details.genres.some(genre=> genre.name == selected)) // prints a true or false if the movie object genre has the selected variable in it true if has false if not 
+      //console.log(movie.details.genres) // prints out movie objects genres 
+      //console.log(movie.details.genres.some(genre=> genre.name == selected)) // prints a true or false if the movie object genre has the selected variable in it true if has false if not 
       return(movie.details.genres.some(genre=> genre.name == selected))
     }else{
-      console.log(movie.details.genres)
+      //console.log(movie.details.genres)
       return(false) // no movie genres array in the movie object 
     }
   })
-  console.log(moviesFilteredbyGenre) 
+  //console.log(moviesFilteredbyGenre) 
   setOgMovies(moviesFilteredbyGenre)
 }
 
-const filterYear= (selectedVal, year)=>{
-  console.log("they chose: ",selectedVal);
+const filterYear= (compareOperator, year)=>{
+  console.log("they chose: ",compareOperator);
   console.log("by the year:",year);
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));  // get the original Movies in an array 
   const moviesFilteredByYear= originalMovies.filter(movie=>{
   //console.log(movie);
   const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
      console.log("the releaseDate of movie above is: ",releaseDateOfMovie)
-     if(selectedVal == "Greater"){
-       if(releaseDateOfMovie > selectedVal){
+     if(compareOperator == "Greater"){
+       if(releaseDateOfMovie > year){
         console.log(movie);
         console.log("The release date of movie is larger then the selected value")
-        return(movie);
+        return(true);
        }else{
         return(false);
        }
-     } else { 
-      if(releaseDateOfMovie < selectedVal){
+     } else if(compareOperator == "Less"){ 
+      if(releaseDateOfMovie < year){
         console.log(movie);
-        return(movie);
+        return(true);
        }else{
         return(false);
        }
+     }else{
+      if(releaseDateOfMovie === year){
+        console.log(movie);
+        return(true);
+      }else{
+        return(false);
+      }
      }
   })
+  console.log(moviesFilteredByYear);
+  setOgMovies(moviesFilteredByYear);
+}
   // et moviesFilteredByYear=[];
   // if(selectedVal == "Greater"){
   //  moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) > selectedVal);
   // }else{
   //   moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) < selectedVal);
   // }
-  console.log(moviesFilteredByYear);
-  //setOgMovies(moviesFilteredByYear)
   
   
   
@@ -204,8 +204,8 @@ const filterYear= (selectedVal, year)=>{
   // }
 
   // )
-  // if 
-}
+
+
 return (
     <div className="App">
       <Header className="App-header" resetToOGData={resetToOGData}  />
