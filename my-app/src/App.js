@@ -18,6 +18,11 @@ const App = () => {
   // const [movies, setMovies]=useState([]);
    //const [gSelectionList, setGSelectionList]= useState([]);
 
+  const genres = ogMovies.map(movie => movie.details.genres).flat().map(genre => genre ? genre.name : '' )
+  const uniqueGenres = [...new Set(genres)]
+  uniqueGenres.sort((a,b)=>a.localeCompare(b));
+  console.log('genres',uniqueGenres)
+
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
@@ -208,7 +213,7 @@ return (
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
           <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetToOGData={resetToOGData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect}/>} />
-          <Route path="/:movieId" element={<MovieDetails />} />
+          <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
     </div>
