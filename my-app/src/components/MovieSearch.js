@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchForm from './SearchForm';
+// loading gif from https://uxplanet.org/using-loading-animation-on-websites-and-apps-examples-and-snippets-to-use-cab0097be9f1
+import loadingGif from '../1_e_Loq49BI4WmN7o9ItTADg.gif'
 
 const MovieSearch = (props) => {
     const [effect, setEffect] = useState(false);
@@ -8,8 +10,14 @@ const MovieSearch = (props) => {
   
     
     // useEffect(() => {
-    //     props.resetToOGData();
-    // }, [props.resetToOGData]);
+    //     props.resetData();
+    // }, [props.resetData]);
+
+    // if(props.setIsLoading(true)){
+    //     setTimeout(() => {
+    //         props.setIsLoading(false);
+    //     }, 3000);
+    // }
     
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen">
@@ -17,6 +25,7 @@ const MovieSearch = (props) => {
             <div className="container mx-auto h-[48rem] max-h-[700px]">
                 <div className="flex flex-row flex-wrap py-4 h-full">
                     <aside className="w-full sm:w-1/3 md:w-1/4 px-2 bg-black bg-opacity-40 rounded-md">
+                        {!props.isLoading && 
                         <div className="sticky top-0 p-4 w-full">
                             {/* <!-- navigation --> */}
                             <div className="flex flex-col overflow-hidden items-center">
@@ -26,25 +35,20 @@ const MovieSearch = (props) => {
                                 </h1>
                                 {/* button style from https://v1.tailwindcss.com/components/buttons
                                 button animation from https://tailwind-elements.com/docs/standard/components/buttons/ */}
-                                <Link to="/movies" onClick={props.resetToOGData}>
-                                    <button className=
-                                    // {`${
-                                    //         effect && "animate-wiggle"
-                                    //         }
-                                            "text-white font-bold py-2 px-4 border-b-4 border-yellow-700 hover:border-yellow-500 rounded w-32 mt-10 bg-yellow-600 hover:bg-yellow-500 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0"
-                                            // `}
-                                            // onClick={() => {
-                                            //     setEffect(true);
-                                            // }}
-                                            // onAnimationEnd={() => setEffect(false)}
-                                            >
+                                <Link to="/movies" onClick={props.resetData}>
+                                    <button className="text-white font-bold py-2 px-4 border-b-4 border-yellow-700 hover:border-yellow-500 rounded w-32 mt-10 bg-yellow-600 hover:bg-yellow-500 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0">
                                         Browse All
                                     </button>
                                 </Link>
                                 <SearchForm searchForMovieTitle={props.searchForMovieTitle} />
                                
                             </div>
-                        </div>
+                        </div>}
+                        {props.isLoading && 
+                        <div>
+                            <img src={loadingGif} title={loadingGif} alt={'Fetching Data...'} className="opacity-40 w-full"/>
+                            <p className="text-white opacity-60">Reticulating Splines...</p>
+                        </div>}
                     </aside>
                     <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
                         {/* <!-- content area --> */}

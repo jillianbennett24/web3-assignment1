@@ -14,6 +14,7 @@ const App = () => {
   const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves")) || []); 
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
@@ -26,17 +27,23 @@ const App = () => {
         sortMovies(mdata, "title");
         setOgMovies(mdata);
       }else{
+        setIsFetching(true);
         // if we dont have data then we need to fetch it 
-        fetch("https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=20")
+        fetch("https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=200")
         .then(resp=>resp.json())
         .then(data=>{
+          // using set timeout to simulate a longer loading time
+          setTimeout(()=>{
+            setIsFetching(false);
+          }, 3000)
           // save in local storage 
           localStorage.setItem("allMovies", JSON.stringify(data))
           // data.sort((a,b)=>a.title.localeCompare(b.title));
           sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
-          // setMovies(ogMovies); // jill added to test brain idk if its right spot 
+          // setMovies(ogMovies); // jill added to test brain idk if its right spot
+          
         })
         .catch(err => console.log(err))
       }
@@ -49,7 +56,7 @@ const App = () => {
     // }
   })
 
-  const resetToOGData=()=>{
+  const resetData=()=>{
       // first retrieve from local storage 
       const temp = localStorage.getItem("allMovies");
         let mdata = JSON.parse(temp);
@@ -57,8 +64,8 @@ const App = () => {
         sortMovies(mdata, "title");
         console.log("rsettinhg data with mdata: ", mdata)
         setOgMovies(mdata);
-      
   }
+
   const searchForMovieTitle=(input)=>{
     const searchResultsArray = ogMovies.filter(movie => (movie.title).toLowerCase().includes(input.toLowerCase()));
     console.log("this is the searchResultsArray: ",searchResultsArray)
@@ -76,11 +83,12 @@ const App = () => {
   
   const sortMovies = (movies, sortType, reverse=false) => {    
     if (sortType === "title"){
-      if(!reverse)
-        movies.sort((a,b)=>a[sortType].localeCompare(b[sortType]))
-      else
-        movies.sort((a,b)=>b[sortType].localeCompare(a[sortType]))
-      
+      if(!reverse) {
+        movies.sort((a,b)=>a[sortType].toString().localeCompare(b[sortType].toString()))
+      }else{
+        movies.sort((a,b)=>b[sortType].toString().localeCompare(a[sortType].toString()))
+      }
+     
     } else if (sortType === "year"){
       movies.sort((a,b)=>{
         const year1 = parseInt(a["release_date"].slice(0,4));
@@ -257,11 +265,11 @@ const filterRating =(rangeArray)=>{
 
 return (
     <div className="App">
-      <Header className="App-header" resetToOGData={resetToOGData}  />
+      <Header className="App-header" resetData={resetData}  />
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
-          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetToOGData={resetToOGData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
