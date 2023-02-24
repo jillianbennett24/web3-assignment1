@@ -67,10 +67,11 @@ const App = () => {
   }
 
   const searchForMovieTitle=(input)=>{
-    const searchResultsArray = ogMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
+    const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
+    const searchResultsArray = originalMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
     console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length===0){
-      alert("Array is empty:(");
+      alert("Array is empty :(");
       console.log("og movies in search for movie titile :" , ogMovies);
       setOgMovies(searchResultsArray)
     }else{
@@ -135,9 +136,6 @@ const favHandler = (movieId) => {
 
 
 const onGenreSelect = (selected)=>{
-  // attempt 7?
- // console.log("this option was selected: ", selected)
-
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
   //console.log("this is the ogMovies in onGenreSelect: " ,ogMovies);
   const moviesFilteredbyGenre = originalMovies.filter(movie=> { 
@@ -191,7 +189,7 @@ const filterYear= (compareOperator, year)=>{
 }
 const filterRating =(rangeArray)=>{
   console.log("this is range array in app",rangeArray);
-  if(rangeArray.length==0){alert("There is no movies that match your range!")}
+  //if(rangeArray.length==0){alert("There is no movies that match your range!")}
   const [r1, r2]= rangeArray;
   console.log("this is r1: ",r1);
   console.log("this is r2:", r2);
@@ -208,7 +206,7 @@ const filterRating =(rangeArray)=>{
   // get all oroginal movies 
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));  // get the original Movies in an array 
   const filteredByRange=originalMovies.filter(movie=>{
-    console.log(movie);
+    //console.log(movie);
     if(smallestValue <= movie.ratings.average && movie.ratings.average <=biggestValue){
       console.log(movie.ratings.average);
       return(true);
@@ -218,7 +216,14 @@ const filterRating =(rangeArray)=>{
     }
   })
   console.log(filteredByRange);
-  setOgMovies(filteredByRange);
+  if(filteredByRange.length==0){
+    setOgMovies([])// Hey Joel this isnt working:(
+    alert("There is no movies that match your range!");
+  }else{
+    setOgMovies(filteredByRange);
+  }
+  
+ 
   
 }
   // et moviesFilteredByYear=[];
@@ -245,6 +250,23 @@ const filterRating =(rangeArray)=>{
 
   // )
   // if
+
+  const filterTitle=(searchedTitle)=>{
+    const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
+    const searchTitleArray = originalMovies.filter(movie => {
+      console.log(searchedTitle)
+      if(movie.title.toLowerCase().includes(searchedTitle.toLowerCase())){
+        console.log(movie.title);
+        return(true)
+      }else{
+        return(false);
+      }
+    })
+    console.log(searchTitleArray);
+    setOgMovies(searchTitleArray);
+  }
+
+
   const addUserRating = (movieId, rating) => {
     const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
     const movieToRate = originalMovies.find(movie=>movie.id == movieId);
@@ -269,7 +291,7 @@ return (
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 

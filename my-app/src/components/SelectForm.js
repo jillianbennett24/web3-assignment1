@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 const SelectForm =(props)=>{
     const [selectedValue, setSelectedValue] = useState('');
-   // const uniqueGenres = props.getAllGenres();
+   
 
-   // console.log(props.sampleMovie.title);
-   // console.log("this is movies in selectForm: ", props.movies);
-    //console.log(props)
-    
+    /** this function gets all the unique genres from the movie lists by getting
+     *  all genres then filtering through them so there is no repeat genres listed
+     * 
+     * @returns uniqueGenres - an array with all the unique genres in the movies list 
+     */
     const getAllGenres =()=>{
         const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
         const genres= originalMovies.map(movie => movie.details.genres).flat().map(genre=>genre ? genre.name : '')
@@ -15,9 +16,12 @@ const SelectForm =(props)=>{
         uniqueGenres.sort((a,b)=>a.localeCompare(b));
         return (uniqueGenres)
     }
-
+    /** this function handles the onchange of the select list for genres and sets the new state to
+     * the selected genre and then sends back the selected value to the onGenreSelect function in app 
+     * 
+     * @param {*} e the event of the select genre select drop down list 
+     */
     const handleChange =(e)=>{
-        console.log("lallala");
         console.log(selectedValue);
         setSelectedValue(e.target.value);
         console.log(selectedValue);
