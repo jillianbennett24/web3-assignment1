@@ -255,7 +255,7 @@ const filterRating =(rangeArray)=>{
     const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
     const searchTitleArray = originalMovies.filter(movie => {
       console.log(searchedTitle)
-      if(movie.title.toLowerCase().includes(searchedTitle.toLowerCase())){
+      if((movie.title).toString().toLowerCase().includes(searchedTitle.toLowerCase())){
         console.log(movie.title);
         return(true)
       }else{
