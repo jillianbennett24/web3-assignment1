@@ -2,40 +2,28 @@ import React, { useState } from 'react';
 import SearchForm from './SearchForm';
 import YearForm from './YearForm';
 import SelectForm from'./SelectForm';
+import RatingForm from './RatingForm';
 
 
 const Filters = (props) => {
-//     let selected;
-//    // const [gSelection, setGSelection]= useState();
-// const uniqueGenres = props.getAllGenres();
-//   //console.log("this is in filters", props.uniqueGenres)
-//    const handleGSelect =(event)=>{
-//      //console.log(gSelection)
-//      console.log(event.target.value)
-//     // setGSelection(event.target.value);
-//      //console.log(gSelection); // iTS currently like back one which kinda confuses me 
-//     const selected=event.target.value; 
-//     props.filteredGenres(selected);
-//      //console.log("gfiltered in filters component: ", gfiltered);
-//    }
+    const [selectedFilter,setSelectedFilter]=React.useState('');
   
 
     return ( 
         <div>
-            <h1>
-                Filters
-            </h1>
-            <div>
-                <label>Title</label>
-                <SearchForm searchForMovieTitle={props.searchForMovieTitle} />
-                
-                <label>Genre</label>
-                <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/>
-                <div>
-                    Year
-                    <YearForm movies={props.movies} filterYear={props.filterYear}/>
-                </div>
-            </div>
+            <h1> Filters </h1>
+            <label>Select your Filter:</label>
+            <select value={selectedFilter} onChange={(e)=>{setSelectedFilter(e.target.value)}}>
+                <option value="title">Title</option>
+                <option value="genre">Genre</option>
+                <option value="date">Date</option>
+                <option value="rating">Rating</option>
+            </select>
+            {selectedFilter==="title" ? <SearchForm searchForMovieTitle={props.searchForMovieTitle} /> : null}
+            {selectedFilter==="genre" ?  <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/> : null}
+            {selectedFilter==="date" ?  <YearForm movies={props.movies} filterYear={props.filterYear}/> : null}
+            {selectedFilter==="rating" ? <RatingForm filterRating={props.filterRating}/> : null}
+            
         </div>
     )
 }

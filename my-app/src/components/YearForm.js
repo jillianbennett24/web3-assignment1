@@ -4,13 +4,12 @@ import 'react-datetime/css/react-datetime.css';
 
 const YearForm =(props)=>{
     const [year, setYear] = useState('');
-    const [selectValue, setSelectValue] = React.useState("");
+    const [selectValue, setSelectValue] = React.useState('');
     
 
-    // const handleChange =(e)=>{
-    //     const value = e.target.value;
-    //   setSelectValue(value);
-    // }
+   const onClick=()=>{
+    props.filterYear(selectValue,year);
+   }
 //   useEffect( () => {
 
 //   })
@@ -28,7 +27,8 @@ const YearForm =(props)=>{
                 <Datetime dateFormat="YYYY" onChange={(date) => {setYear(date.year())}} />
             </div>
             <h5>You selected {selectValue} year: {year}</h5>
-            {props.filterYear(selectValue,year)}
+            <button type="button" className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-600 hover:border-blue-500 rounded mt-2 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " onClick={onClick}> Search By Year</button>
+            
         </div>
     )
 }
