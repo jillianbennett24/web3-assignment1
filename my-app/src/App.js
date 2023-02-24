@@ -162,11 +162,18 @@ const filterYear= (compareOperator, year)=>{
        }else{
         return(false);
        }
-     } else { 
+     } else if(compareOperator == "Less"){ 
       if(releaseDateOfMovie < year){
         console.log(movie);
         return(true);
        }else{
+        return(false);
+       }
+     }else{
+      if(releaseDateOfMovie === year){
+        console.log(movie);
+        return(true);
+      }else{
         return(false);
       }
      }
@@ -212,8 +219,6 @@ const filterRating =(rangeArray)=>{
   // }else{
   //   moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) < selectedVal);
   // }
-  // console.log(moviesFilteredByYear);
-  //setOgMovies(moviesFilteredByYear)
   
   
   
