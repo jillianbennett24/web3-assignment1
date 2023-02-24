@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
-
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
 
 /** https://mui.com/material-ui/react-slider/ */
+
+
 const valuetext = (value) => {
     return `${value}°C`;
   }
@@ -13,15 +14,18 @@ const RatingForm = (props)=>{
   
     const handleChange = (event, newValue) => {
       setValue(newValue);
-      console.log(newValue); 
+      //console.log(newValue); 
      //console.log(event.target.value);
     
     };
+    /**
+     * this function is going to when the button is clicked submit the values to the filterRating 
+     * function that is in App which will filter based on the rating ranger provided and alter the list of movies displayed
+     */
     const buttonClicked =()=>{
         props.filterRating(value);
       
     }
-  
     return (
         <div>
       <Box sx={{ width: 100 }}>
