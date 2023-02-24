@@ -255,7 +255,7 @@ const filterRating =(rangeArray)=>{
     const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
     const searchTitleArray = originalMovies.filter(movie => {
       console.log(searchedTitle)
-      if(movie.title.toLowerCase().includes(searchedTitle.toLowerCase())){
+      if((movie.title).toString().toLowerCase().includes(searchedTitle.toLowerCase())){
         console.log(movie.title);
         return(true)
       }else{
@@ -291,7 +291,7 @@ return (
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating} searchForMovieTitle={searchForMovieTitle}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
