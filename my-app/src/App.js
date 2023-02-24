@@ -181,6 +181,38 @@ const filterYear= (compareOperator, year)=>{
   console.log(moviesFilteredByYear);
   setOgMovies(moviesFilteredByYear);
 }
+const filterRating =(rangeArray)=>{
+  console.log("this is range array in app",rangeArray);
+  if(rangeArray.length==0){alert("There is no movies that match your range!")}
+  const [r1, r2]= rangeArray;
+  console.log("this is r1: ",r1);
+  console.log("this is r2:", r2);
+  let biggestValue;
+  let smallestValue;
+  if(r1>r2){
+    biggestValue=r1;
+    smallestValue=r2;
+  }else{
+    biggestValue=r2;
+    smallestValue=r1;
+  }
+  console.log("bigger: ",biggestValue, "smaller: ",smallestValue);
+  // get all oroginal movies 
+  const originalMovies = JSON.parse(localStorage.getItem("allMovies"));  // get the original Movies in an array 
+  const filteredByRange=originalMovies.filter(movie=>{
+    console.log(movie);
+    if(smallestValue <= movie.ratings.average && movie.ratings.average <=biggestValue){
+      console.log(movie.ratings.average);
+      return(true);
+    }else{
+      console.log("the movies average",movie.ratings.average," should bigger then: ",smallestValue, "and smaller then: ",biggestValue )
+      return(false);
+    }
+  })
+  console.log(filteredByRange);
+  setOgMovies(filteredByRange);
+  
+}
   // et moviesFilteredByYear=[];
   // if(selectedVal == "Greater"){
   //  moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) > selectedVal);
@@ -212,7 +244,7 @@ return (
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetToOGData={resetToOGData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect}/>} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} filterRating={filterRating} sortMovies={sortMovies} filterYear={filterYear} resetToOGData={resetToOGData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 

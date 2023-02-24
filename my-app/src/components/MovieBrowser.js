@@ -10,7 +10,7 @@ const MovieBrowser = (props) => {
                     <div className="flex">
                         <div className="w-1/12 pr-4">
                             <div className="sticky top-0">
-                                <Filters  sampleMovie={props.sampleMovie} filterYear={props.filterYear} searchForMovieTitle={props.searchForMovieTitle}  onGenreSelect={props.onGenreSelect} movies={props.movies} resetToOGData={props.resetToOGData}/>
+                                <Filters  sampleMovie={props.sampleMovie} filterRating={props.filterRating} filterYear={props.filterYear} searchForMovieTitle={props.searchForMovieTitle}  onGenreSelect={props.onGenreSelect} movies={props.movies} resetToOGData={props.resetToOGData}/>
                             </div>
                         </div>
                         {/* <div className=" min-w-fit mx-auto flex-1 border-red-500 border-solid border-2"> */}

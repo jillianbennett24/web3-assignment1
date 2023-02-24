@@ -1,23 +1,43 @@
 import React,{useState} from 'react';
 
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+
+
+/** https://mui.com/material-ui/react-slider/ */
+const valuetext = (value) => {
+    return `${value}°C`;
+  }
 const RatingForm = (props)=>{
-    const [selectedVal,setSelectValue]=React.useState('');
-    const sliderRef = React.useRef();
-  const thumbRef = React.useRef();
-  const handleMouseDown = event => {};
-return(
-    <div>
-        This is gonna be the rating form
-        <select onChange={(e)=>{setSelectValue(e.target.value)}} >
-            <option defaultValue={null}></option>
-            <option value="Less">Less</option>
-            <option value="Greater">Greater</option>
-        </select>
-         {/* https://www.robinwieruch.de/react-slider/ */}
-        <div ref={sliderRef} className="relative rounded-md bg-gray-300 h-3">
-            <div ref={thumbRef} onMouseDown={handleMouseDown} className="absolute top-0 left-0 w-3 h-5 rounded-md bg-purple-600 opacity-50 cursor-pointer"></div>
-        </div>
-    </div>
-)
+    const [value, setValue] = useState([0, 10]);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+      console.log(newValue); 
+     //console.log(event.target.value);
+    
+    };
+    const buttonClicked =()=>{
+        props.filterRating(value);
+      
+    }
+  
+    return (
+        <div>
+      <Box sx={{ width: 100 }}>
+        <Slider
+          getAriaLabel={() => "Temperature range"}
+          value={value}
+          min={0}
+          max={10}
+          step={0.5}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+      </Box>
+      <button type="button" onClick={buttonClicked} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search in selected range</button>
+      </div>
+    );
 }
 export default RatingForm;

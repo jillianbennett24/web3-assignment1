@@ -22,7 +22,8 @@ const Filters = (props) => {
             {selectedFilter==="title" ? <SearchForm searchForMovieTitle={props.searchForMovieTitle} /> : null}
             {selectedFilter==="genre" ?  <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/> : null}
             {selectedFilter==="date" ?  <YearForm movies={props.movies} filterYear={props.filterYear}/> : null}
-            {selectedFilter==="rating" ? <RatingForm movies={props.movies} /> : null}
+            {selectedFilter==="rating" ? <RatingForm filterRating={props.filterRating}/> : null}
+            
         </div>
     )
 }
