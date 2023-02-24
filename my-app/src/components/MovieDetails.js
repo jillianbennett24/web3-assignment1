@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { BsStarFill } from 'react-icons/bs';
+import { StarRating } from './StarRating';
 
 const MovieDetails = (props) => {
   const movieId = useParams().movieId
@@ -9,11 +11,6 @@ const MovieDetails = (props) => {
   console.log(movie)
   const posterUrl = `https://image.tmdb.org/t/p/w342/${movie.poster}`
   const backdropUrl = `https://image.tmdb.org/t/p/w1280${movie.backdrop}`
-  const releaseDate = Date.parse(movie.release_date)
-  const minute = 1000 * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const year = day * 365;
 
 
   return (
@@ -30,7 +27,8 @@ const year = day * 365;
           <p className='text-gray-300 mb-4'>{movie.details.genres ? movie.details.genres.map((genre) => genre.name).join(", ") : ''}</p>
           <p className='mb-4'>{movie.details.overview}</p>
           <div className='flex justify-between mb-4 mx-36'>
-            <p>{movie.ratings.average}</p>
+            <p>Rated <span className="text-3xl text-green-300 mx-2">{movie.ratings.average}</span> based on <span className="font-bold">{movie.ratings.count}</span> user ratings</p>
+            <span className='text-3xl text-green-500 mx-2'><StarRating rating={movie.ratings.average}/></span>
             <p>{movie.ratings.popularity.toFixed(0)}</p>
           </div>
           <div className='flex justify-between mb-4 mx-48'>
