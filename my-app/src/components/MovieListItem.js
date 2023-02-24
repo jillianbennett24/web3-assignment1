@@ -15,11 +15,16 @@ const MovieListItem = (props) => {
     console.log(props.movie.id)
     navigate(`/movie/${props.movie.id}`)
   }
+
+  const onImageError = (e) => {
+    e.target.onerror = null
+    e.target.src = 'https://via.placeholder.com/92x138?text=No+Image'
+  }
+
   return (
             <tr onClick={rowClickHandler} className="hover:cursor-pointer hover:bg-slate-200">
-  {/* // <Link to={`/movie/${props.movie.id}`}> */}
               <td className="px-6 py-4 whitespace-nowrap bg-black bg-opacity-10">
-                <img src={posterUrl} alt={props.movie.title} className="mx-auto"/>
+                <img src={posterUrl} alt={props.movie.title} title={props.movie.title} onError={onImageError} className="mx-auto"/>
                 </td>
                 <td className="px-6 py-4 whitespace-normal  max-w-lg">
                 {props.movie.title}
@@ -36,7 +41,6 @@ const MovieListItem = (props) => {
               <td className="px-6 py-4 whitespace-nowrap" onClick={(e)=>favClickHandler(e)}>
                 <FavHeart isFav={props.faves.includes(props.movie.id)}/>
               </td>
-              {/* </Link> */}
             </tr>
           
   )

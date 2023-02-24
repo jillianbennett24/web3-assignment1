@@ -99,7 +99,7 @@ const MovieDetails = (props) => {
             <p>
               Rated 
               <span className="text-3xl text-green-300 mx-2">
-                <StarRating rating={movie.ratings.average}/>
+                <StarRating rating={movie.ratings.average} key={`rating-${movieId}`}/>
               </span> 
               based on 
               <span className="font-bold mx-1">{movie.ratings.count}

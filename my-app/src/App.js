@@ -67,7 +67,7 @@ const App = () => {
   }
 
   const searchForMovieTitle=(input)=>{
-    const searchResultsArray = ogMovies.filter(movie => (movie.title).toLowerCase().includes(input.toLowerCase()));
+    const searchResultsArray = ogMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
     console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length===0){
       alert("Array is empty:(");
@@ -269,7 +269,7 @@ return (
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
