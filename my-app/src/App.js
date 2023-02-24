@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
   const [ogMovies,setOgMovies]= useState([]); // set an og state thing 
-  const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves"))); 
+  const [faves, setFaves] = useState(JSON.parse(localStorage.getItem("faves")) || []); 
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
 
@@ -163,17 +163,17 @@ const filterYear= (selectedVal, year)=>{
   const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
      console.log("the releaseDate of movie above is: ",releaseDateOfMovie)
      if(selectedVal == "Greater"){
-       if(releaseDateOfMovie > selectedVal){
+       if(releaseDateOfMovie > year){
         console.log(movie);
         console.log("The release date of movie is larger then the selected value")
-        return(movie);
+        return(true);
        }else{
         return(false);
        }
      } else { 
-      if(releaseDateOfMovie < selectedVal){
+      if(releaseDateOfMovie < year){
         console.log(movie);
-        return(movie);
+        return(true);
        }else{
         return(false);
        }
@@ -186,6 +186,7 @@ const filterYear= (selectedVal, year)=>{
   //   moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) < selectedVal);
   // }
   console.log(moviesFilteredByYear);
+ 
   //setOgMovies(moviesFilteredByYear)
   
   
@@ -206,6 +207,25 @@ const filterYear= (selectedVal, year)=>{
   // )
   // if 
 }
+
+const addUserRating = (movieId, rating) => {
+  const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
+  const movieToRate = originalMovies.find(movie=>movie.id == movieId);
+  //update count and average if no user rating exists yet
+  if (!movieToRate.ratings.userRating) {
+    movieToRate.ratings.count++
+    movieToRate.ratings.average = (movieToRate.ratings.average * (movieToRate.ratings.count - 1) + rating) / movieToRate.ratings.count
+  } else { //update average if user rating exists
+    movieToRate.ratings.average = ((movieToRate.ratings.average * movieToRate.ratings.count) - movieToRate.ratings.userRating + rating) / movieToRate.ratings.count
+
+  }
+  movieToRate.ratings["userRating"] = rating;
+  console.log("movieToRate after rating: ", movieToRate);
+  console.log("originalMovies after rating: ", originalMovies);
+  localStorage.setItem("allMovies", JSON.stringify(originalMovies));
+  setOgMovies(originalMovies);
+}
+
 return (
     <div className="App">
       <Header className="App-header" resetToOGData={resetToOGData}  />
@@ -213,7 +233,7 @@ return (
       <Routes>
           <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetToOGData={resetToOGData}  />} />
           <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} filterYear={filterYear} resetToOGData={resetToOGData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect}/>} />
-          <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies}/>} />
+          <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 
     </div>

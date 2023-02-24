@@ -16,7 +16,7 @@ const MovieListItem = (props) => {
     navigate(`/movie/${props.movie.id}`)
   }
   return (
-            <tr onClick={rowClickHandler}>
+            <tr onClick={rowClickHandler} className="hover:cursor-pointer hover:bg-slate-200">
   {/* // <Link to={`/movie/${props.movie.id}`}> */}
               <td className="px-6 py-4 whitespace-nowrap bg-black bg-opacity-10">
                 <img src={posterUrl} alt={props.movie.title} className="mx-auto"/>
