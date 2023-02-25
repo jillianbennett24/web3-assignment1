@@ -31,7 +31,7 @@ const MovieBrowser = (props) => {
         }
     }
     return (
-        <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen flex items-center justify-center">
+        <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-repeat-y min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">
                 <div className="w-screen px-4">
                     <div className="flex">
