@@ -30,9 +30,10 @@ const SelectForm =(props)=>{
     }
     return(
         <div>
-            <label>Genre:</label>
-           
-            <select value={selectedValue} onChange={handleChange}>
+            <label className='block mb-2 text-gray-400'>
+                Genre:
+            </label>
+            <select value={selectedValue} onChange={handleChange} className="w-full mb-4 py-2 px-4 rounded-md text-gray-700">
                 {getAllGenres().map((g,key)=>{return(<option value={g} key={key}>{g}</option>)})}
             </select>
         </div>

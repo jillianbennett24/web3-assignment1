@@ -15,19 +15,24 @@ const YearForm =(props)=>{
 //   })
   
     return(
-        <div>
-            year
-            <div>
-                <select onChange={(e)=>{setSelectValue(e.target.value)}} >
+        <div className="flex flex-col items-center">
+            <div className="block mb-2 text-gray-400">Year:</div>
+            <div className="flex flex-col items-center">
+                <select onChange={(e)=>{setSelectValue(e.target.value)}} className="border-2 border-slate-400 rounded-md p-2 mb-2">
                     <option defaultValue={null}></option>
-                    <option value="Less">Less</option>
-                    <option value="Greater">Greater</option>
+                    <option value="Before">Before</option>
+                    <option value="After">After</option>
                 </select>
                
-                <Datetime dateFormat="YYYY" onChange={(date) => {setYear(date.year())}} />
+                <Datetime dateFormat="YYYY" timeFormat={false} onChange={(date) => {setYear(date.year())}}  
+                        className="w-fit border-2 border-slate-400 rounded-md p-2"/>
             </div>
-            <h5>You selected {selectValue} year: {year}</h5>
-            <button type="button" className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-600 hover:border-blue-500 rounded mt-2 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " onClick={onClick}> Search By Year</button>
+            {/* <h5>You selected {selectValue} year: {year}</h5> */}
+            <button type="button" 
+                className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 border-b-4 border-blue-600 hover:border-blue-700 rounded-md mt-4 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " 
+                onClick={onClick}> 
+                Search By Year
+            </button>
             
         </div>
     )

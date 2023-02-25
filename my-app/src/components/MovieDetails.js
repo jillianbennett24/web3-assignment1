@@ -22,6 +22,10 @@ const MovieDetails = (props) => {
   const backdropUrl = `https://image.tmdb.org/t/p/w1280${movie.backdrop}`
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [userRating, setUserRating] = React.useState(movie.ratings.userRating || 0);
+  const [posterExists, setPosterExists] = React.useState(true);
+  const logarithmicPopularity = (3000 * Math.log10(movie.ratings.popularity)) / 100
+  console.log('logarithmicPopularity',logarithmicPopularity)
+  const scrubbedOverview = movie.details.overview.replace(/[^a-zA-Z0-9.,'’‘“”?!\s]/g, '') // scrubbing encoding issues
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -60,17 +64,22 @@ const MovieDetails = (props) => {
     props.favHandler(movieId);
   }
 
+  const onImageError = (e) => {
+    e.target.onerror = null
+    setPosterExists(false)
+  }
+
 
   return (
     <div>
       <div className="h-screen w-full bg-cover bg-center text-white" style={{backgroundImage: `url("${backdropUrl}")`}}>
         <Link to="/movies">
           <button className="absolute top-16 right-2 hover:bg-red-600 rounded-md">
-            <HiX size={48} className="text-white" />
+            <HiX size={48} className="text-white bg-black opacity-20 hover:opacity-100 hover:bg-red-600 rounded-md"/>
           </button>
         </Link>
-        <img className='h-full' src={posterUrl} title={movie.title} alt={movie.title} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/3 -translate-y-1/3 p-4 m-auto h-fit bg-black rounded-lg opacity-70">
+        {posterExists && <img className='h-full' src={posterUrl} title={movie.title} alt={movie.title} onError={onImageError}/>}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/4 -translate-y-1/3 p-4 m-auto h-fit bg-black rounded-lg opacity-70">
         <div className="flex justify-center items-center mb-2 mx-auto">
           <h2 className="text-4xl font-bold">{movie.title}</h2>
           <span className='text-lg ml-4 font-normal'>({movie.release_date.slice(0,4)})</span>
@@ -83,11 +92,11 @@ const MovieDetails = (props) => {
             <p className='text-gray-300 mb-4'>{movie.details.genres ? movie.details.genres.map((genre) => genre.name).join(", ") : ''}</p>
             <p>{movie.runtime} minutes</p>
           </div>
-          <p className='mb-4'>{movie.details.overview}</p>
+          <p className='mb-4'>{scrubbedOverview}</p>
           <div className='flex justify-between items-center mb-4 mx-10'>
             <div>
               <GaugeChart id="popularity-gauge" nrOfLevels={15} 
-                                                percent={movie.ratings.popularity.toFixed(0)/100} 
+                                                percent={logarithmicPopularity.toFixed(0)/100} 
                                                 colors={["#FF5F6D", "#99ff99"]} 
                                                 arcWidth={0.5} 
                                                 arcPadding={0} 

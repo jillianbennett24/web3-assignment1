@@ -16,6 +16,15 @@ const App = () => {
   const [gSortList, setGSortList]=useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
+  // print out movies with exclamation marks or question marks in the overview
+  
+  JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
+      if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
+        console.log("punc movie",movie.title);
+      }
+    })
+  
+
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
@@ -76,7 +85,7 @@ const App = () => {
       setOgMovies(searchResultsArray)
     }else{
       console.log("this is the searchResultsArray: ",searchResultsArray)
-      setOgMovies(searchResultsArray)
+      setOgMovies([])
     console.log(ogMovies)
     }
     
@@ -160,7 +169,7 @@ const filterYear= (compareOperator, year)=>{
   //console.log(movie);
   const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
      console.log("the releaseDate of movie above is: ",releaseDateOfMovie)
-     if(compareOperator == "Greater"){
+     if(compareOperator == "After"){
        if(releaseDateOfMovie > year){
         console.log(movie);
         console.log("The release date of movie is larger then the selected value")
@@ -168,7 +177,7 @@ const filterYear= (compareOperator, year)=>{
        }else{
         return(false);
        }
-     } else if(compareOperator == "Less"){ 
+     } else if(compareOperator == "Before"){ 
       if(releaseDateOfMovie < year){
         console.log(movie);
         return(true);
@@ -282,6 +291,7 @@ const filterRating =(rangeArray)=>{
     console.log("movieToRate after rating: ", movieToRate);
     console.log("originalMovies after rating: ", originalMovies);
     localStorage.setItem("allMovies", JSON.stringify(originalMovies));
+    sortMovies(originalMovies, "title")
     setOgMovies(originalMovies);
   } 
 

@@ -13,23 +13,32 @@ const Filters = (props) => {
         props.resetData();
     }
     return ( 
-        <div>
-            <h1> Filters </h1>
-            <label>Select your Filter:</label>
-            <select value={selectedFilter} onChange={(e)=>{setSelectedFilter(e.target.value)}}>
-                <option value="title">Title</option>
-                <option value="title2">Title2</option>
-                <option value="genre">Genre</option>
-                <option value="date">Date</option>
-                <option value="rating">Rating</option>
-            </select>
-            {selectedFilter==="title2"? <SearchTitleForm filterTitle={props.filterTitle}/> : null}
-            {selectedFilter==="title" ? <SearchForm searchForMovieTitle={props.searchForMovieTitle} /> : null}
-            {selectedFilter==="genre" ?  <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/> : null}
-            {selectedFilter==="date" ?  <YearForm movies={props.movies} filterYear={props.filterYear}/> : null}
-            {selectedFilter==="rating" ? <RatingForm filterRating={props.filterRating}/> : null}
-            <button type="button" onClick={removeAllFilters} className="px-4 py-2 font-medium text-white bg-green-500 rounded-md shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Remove All Filters</button>
-        </div>
+        <aside className="w-full px-2 bg-black bg-opacity-40 rounded-md">
+            <div className="w-full p-4">
+                <div className="flex flex-col items-center">
+                    <h1 className='text-gray-300 font-sans font-light text-4xl leading-10 tracking-widest pb-10 border-b-2 border-double border-gray-500'> 
+                        Filters
+                    </h1>
+                    <label className="block mb-2 text-gray-400 mt-2">Filter:</label>
+                    <select value={selectedFilter} onChange={(e)=>{setSelectedFilter(e.target.value)}}
+                            className="px-3 py-2 mb-4 text-gray-900 bg-white border border-gray-400 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                        {/* <option value="title">Title</option> */}
+                        <option value="title">Title</option>
+                        <option value="genre">Genre</option>
+                        <option value="year">Year</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                    {selectedFilter==="title"? <SearchTitleForm filterTitle={props.filterTitle}/> : null}
+                    {/* {selectedFilter==="title" ? <SearchForm searchForMovieTitle={props.searchForMovieTitle} /> : null} */}
+                    {selectedFilter==="genre" ?  <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/> : null}
+                    {selectedFilter==="year" ?  <YearForm movies={props.movies} filterYear={props.filterYear}/> : null}
+                    {selectedFilter==="rating" ? <RatingForm filterRating={props.filterRating}/> : null}
+                    <button type="button" onClick={removeAllFilters} className="inline-block px-4 py-2 text-white font-bold bg-green-500 rounded-md shadow-sm border-b-4 border-green-600 hover:border-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </aside>
     )
 }
 export default Filters

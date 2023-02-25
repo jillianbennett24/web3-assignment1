@@ -8,8 +8,8 @@ const MovieBrowser = (props) => {
             <div className="flex justify-center w-full">
                 <div className="w-screen px-4">
                     <div className="flex">
-                        <div className="w-1/12 pr-4">
-                            <div className="sticky top-0">
+                        <div className="w-2/12 pr-4 mt-4">
+                            <div className="sticky top-0 w-full">
                                 <Filters  sampleMovie={props.sampleMovie} filterTitle={props.filterTitle} filterRating={props.filterRating} filterYear={props.filterYear} searchForMovieTitle={props.searchForMovieTitle}  onGenreSelect={props.onGenreSelect} movies={props.movies} resetData={props.resetData}/>
                             </div>
                         </div>
