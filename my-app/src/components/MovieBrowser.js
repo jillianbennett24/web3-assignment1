@@ -24,10 +24,9 @@ const MovieBrowser = (props) => {
                                 <Filters  sampleMovie={props.sampleMovie} filterTitle={props.filterTitle} filterRating={props.filterRating} filterYear={props.filterYear} searchForMovieTitle={props.searchForMovieTitle}  onGenreSelect={props.onGenreSelect} movies={props.movies} resetData={props.resetData}/>
                             </div>
                         </div>
-                        {/* <div className=" min-w-fit mx-auto flex-1 border-red-500 border-solid border-2"> */}
                         {console.log(emptyResults)}
                         {checkIfEmptyArray}
-                        {/* {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />}  */}
+                        {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
                          {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4">

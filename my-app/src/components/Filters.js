@@ -4,18 +4,30 @@ import YearForm from './YearForm';
 import SelectForm from'./SelectForm';
 import RatingForm from './RatingForm';
 import SearchTitleForm from './SearchTitleForm';
+import { HiX } from 'react-icons/hi';
 
 
 const Filters = (props) => {
     const [selectedFilter,setSelectedFilter]=React.useState('title');
+    const [filtersVisible,setFiltersVisible]=React.useState(true);
   
     const removeAllFilters=()=>{
         props.resetData();
     }
+    
+    const toggleFilters=()=>{
+        setFiltersVisible(!filtersVisible);
+    }
+
     return ( 
-        <aside className="w-full px-2 bg-black bg-opacity-40 rounded-md">
+        <aside className={`w-full px-2 bg-black bg-opacity-40 rounded-md transition-all duration-500 ease-in-out ${filtersVisible ? 'opacity-100' : 'opacity-0 -translate-x-full'}`}>
             <div className="w-full p-4">
                 <div className="flex flex-col items-center">
+                    {/* <div className='flex justify-end'> */}
+                        <div className={`relative left-24 bottom-4 w-fit p-1 cursor-pointer rounded z-1 -mb-6`}>
+                            <HiX size={20} className="text-white hover:bg-red-500" onClick={toggleFilters}/>
+                        </div>
+                    {/* </div> */}
                     <h1 className='text-gray-300 font-sans font-light text-4xl leading-10 tracking-widest pb-10 border-b-2 border-double border-gray-500'> 
                         Filters
                     </h1>
