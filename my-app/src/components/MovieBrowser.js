@@ -36,7 +36,7 @@ const MovieBrowser = (props) => {
                 <div className="w-screen px-4">
                     <div className="flex">
                         <div className="w-2/12 pr-4 mt-4">
-                            {!showFilterButton && 
+                            {showFilterButton && 
                             <div className="sticky top-0">
                                 <button className="bg-black text-gray-300 rounded-md p-2 opacity-40 hover:underline" onClick={toggleFilters}>Filters</button>
                             </div>}
