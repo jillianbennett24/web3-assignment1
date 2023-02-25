@@ -12,6 +12,7 @@ const [activeSort, setActiveSort] = useState('title');
     props.sortMovies(props.movies, sortType);
     setActiveSort(sortType);
   }
+ 
   return (
     <div className="max-w-5xl mx-auto">
     <table className="w-full divide-y divide-gray-200 bg-black bg-opacity-25">
@@ -25,13 +26,14 @@ const [activeSort, setActiveSort] = useState('title');
             <th className="px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">Faves</th>
           </tr>
       </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
+      <tbody className="bg-white divide-y divide-gray-200 ">
         {props.movies.map((movie) => {
             return <MovieListItem key={movie.id} movie={movie} faves={props.faves} favHandler={props.favHandler}/>
           })
         } 
       </tbody>
     </table>
+    {(props.movies.length ==0) && <p>There is no valid movies based on your Search!</p>}
     </div>
   );
 }

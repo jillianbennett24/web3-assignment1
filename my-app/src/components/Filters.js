@@ -7,7 +7,7 @@ import SearchTitleForm from './SearchTitleForm';
 
 
 const Filters = (props) => {
-    const [selectedFilter,setSelectedFilter]=React.useState('');
+    const [selectedFilter,setSelectedFilter]=React.useState('title');
   
     const removeAllFilters=()=>{
         props.resetData();

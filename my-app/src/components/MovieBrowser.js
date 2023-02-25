@@ -1,8 +1,19 @@
+import React, { useState } from 'react';
 import MovieList from "./MovieList";
 import FavoritesList from "./FavoritesList";
 import Filters from "./Filters";
 
 const MovieBrowser = (props) => {
+    const [emptyResults, setEmptyResults]=React.useState(false);
+    const checkIfEmptyArray=()=>{
+        if(props.movies.length==0){
+            setEmptyResults(true)
+            console.log("The movie props is empty ")
+            // return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
+        }else{
+            setEmptyResults(false)
+        }
+    }
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">
@@ -14,7 +25,10 @@ const MovieBrowser = (props) => {
                             </div>
                         </div>
                         {/* <div className=" min-w-fit mx-auto flex-1 border-red-500 border-solid border-2"> */}
-                            <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/>
+                        {console.log(props.emptyResults)}
+                        {checkIfEmptyArray}
+                        {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
+                         {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4">
                             <div className="sticky top-0">
