@@ -15,6 +15,7 @@ const App = () => {
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  // const [emptyResults, setEmptyResults] = useState(false)
 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
@@ -71,13 +72,15 @@ const App = () => {
     const searchResultsArray = originalMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
     console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length===0){
-      alert("Array is empty :(");
+      //alert("Array is empty :(");
       console.log("og movies in search for movie titile :" , ogMovies);
       setOgMovies(searchResultsArray)
+      // setEmptyResults(true)
     }else{
       console.log("this is the searchResultsArray: ",searchResultsArray)
       setOgMovies(searchResultsArray)
     console.log(ogMovies)
+    // setEmptyResults(false)
     }
     
   }
@@ -257,7 +260,7 @@ const filterRating =(rangeArray)=>{
       console.log(searchedTitle)
       if((movie.title).toString().toLowerCase().includes(searchedTitle.toLowerCase())){
         console.log(movie.title);
-        return(true)
+        return(true);
       }else{
         return(false);
       }
