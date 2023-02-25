@@ -17,6 +17,7 @@ const Filters = (props) => {
     
     const toggleFilters=()=>{
         setFiltersVisible(!filtersVisible);
+        
     }
 
     return ( 
@@ -25,7 +26,7 @@ const Filters = (props) => {
                 <div className="flex flex-col items-center">
                     {/* <div className='flex justify-end'> */}
                         <div className={`relative left-24 bottom-4 w-fit p-1 cursor-pointer rounded z-1 -mb-6`}>
-                            <HiX size={20} className="text-white hover:bg-red-500" onClick={toggleFilters}/>
+                            <HiX size={20} className="text-white hover:bg-red-500" onClick={props.toggleFilters}/>
                         </div>
                     {/* </div> */}
                     <h1 className='text-gray-300 font-sans font-light text-4xl leading-10 tracking-widest pb-10 border-b-2 border-double border-gray-500'> 

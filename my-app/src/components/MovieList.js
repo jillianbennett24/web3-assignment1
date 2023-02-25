@@ -23,7 +23,7 @@ const [activeSort, setActiveSort] = useState('title');
             <th onClick={headerClickHandler} className={`px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider hover:cursor-pointer ${activeSort === 'year' ? 'font-black underline scale-110' : ''}`}>Year</th>
             <th onClick={headerClickHandler} className={`px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider hover:cursor-pointer ${activeSort === 'rating' ? 'font-black underline scale-110' : ''}`}>Rating</th>
             <th onClick={headerClickHandler} className={`px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider hover:cursor-pointer ${activeSort === 'popularity' ? 'font-black underline scale-110' : ''}`}>Popularity</th>
-            <th className="px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">Faves</th>
+            <th className="px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">Fave</th>
           </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-200 ">
