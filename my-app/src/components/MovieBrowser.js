@@ -9,7 +9,7 @@ const MovieBrowser = (props) => {
         if(props.movies.length==0){
             setEmptyResults(true)
             console.log("The movie props is empty ")
-            // return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
+            return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
         }else{
             setEmptyResults(false)
         }
@@ -25,9 +25,9 @@ const MovieBrowser = (props) => {
                             </div>
                         </div>
                         {/* <div className=" min-w-fit mx-auto flex-1 border-red-500 border-solid border-2"> */}
-                        {console.log(props.emptyResults)}
+                        {console.log(emptyResults)}
                         {checkIfEmptyArray}
-                        {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
+                        {/* {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />}  */}
                          {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4">
