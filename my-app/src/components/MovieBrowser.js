@@ -23,14 +23,18 @@ const MovieBrowser = (props) => {
 
     const checkIfEmptyArray=()=>{
         if(props.movies.length==0){
-            setEmptyResults(true)
-            console.log("The movie props is empty ")
-            return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
+           setEmptyResults(true)
+           return (<p>No movies found</p>)
+           // console.log("The movie props is empty ")
+            //return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
         }else{
+
             setEmptyResults(false)
+            return( !emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} /> )
         }
     }
     return (
+        
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-repeat-y min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">
                 <div className="w-screen px-4">
@@ -40,7 +44,8 @@ const MovieBrowser = (props) => {
                             <div className="sticky top-0">
                                 <button className="bg-black text-gray-300 rounded-md p-2 opacity-40 hover:underline" onClick={toggleFilters}>Filters</button>
                             </div>}
-                            <div className={`sticky top-0 w-full ransition-all duration-500 ease-in-out ${showFilters ? 'opacity-100' : 'opacity-0 -translate-x-full'}`}>
+                            {console.log("this is the movie props being passed in: ", props.movies)}
+                            <div className={`sticky top-0 w-full ransition-all duration-500 ease-in-out ${showFilters ? 'opacity-100' : 'opacity-0 -translate-x-full'}`} >
                                 <Filters  sampleMovie={props.sampleMovie} 
                                         filterTitle={props.filterTitle} 
                                         filterRating={props.filterRating} 

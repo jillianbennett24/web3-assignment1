@@ -12,6 +12,7 @@ const Filters = (props) => {
     const [filtersVisible,setFiltersVisible]=React.useState(true);
   
     const removeAllFilters=()=>{
+        console.log("YOUR REMOVING ALL FILTERS ")
         props.resetData();
     }
     
