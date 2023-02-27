@@ -23,17 +23,21 @@ const MovieBrowser = (props) => {
 
     const checkIfEmptyArray=()=>{
         if(props.movies.length==0){
-            setEmptyResults(true)
-            console.log("The movie props is empty ")
-            return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
+           setEmptyResults(true)
+           return (<p>No movies found</p>)
+           // console.log("The movie props is empty ")
+            //return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
         }else{
+
             setEmptyResults(false)
+            return( !emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} /> )
         }
     }
 
     // setEmptyResults(props.currentMovies.length)
 
     return (
+        
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-repeat-y min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">
                 <div className="w-screen px-4">

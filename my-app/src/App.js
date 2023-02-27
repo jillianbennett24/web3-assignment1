@@ -14,8 +14,16 @@ const App = () => {
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  // const [emptyResults, setEmptyResults] = useState(false) 
- 
+  const [isEmpty,setIsEmpty]=useState(true);  // is empty is true 
+  
+
+  // print out movies with exclamation marks or question marks in the overview
+  
+  // JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
+  //     if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
+  //       console.log("punc movie",movie.title);
+  //     }
+  //   })
   
 
   useEffect( ()=>{
@@ -28,6 +36,7 @@ const App = () => {
         // mdata.sort((a,b)=>a.title.localeCompare(b.title));
         sortMovies(mdata, "title");
         setOgMovies(mdata);
+        setIsEmpty(false); 
       }else{
         setIsFetching(true);
         // if we dont have data then we need to fetch it 
@@ -44,6 +53,7 @@ const App = () => {
           sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
+          setIsEmpty(false);
           // setMovies(ogMovies); // jill added to test brain idk if its right spot
           
         })
@@ -66,6 +76,7 @@ const App = () => {
         sortMovies(mdata, "title");
         console.log("rsettinhg data with mdata: ", mdata)
         setOgMovies(mdata);
+        // setOgMovies(false); 
   }
 
   const searchForMovieTitle=(input)=>{
@@ -73,7 +84,6 @@ const App = () => {
     const searchResultsArray = originalMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
     console.log("this is the searchResultsArray: ",searchResultsArray)
     if(searchResultsArray.length===0){
-      //alert("Array is empty :(");
       console.log("og movies in search for movie titile :" , ogMovies);
       setOgMovies(searchResultsArray)
       // setEmptyResults(true)
@@ -81,6 +91,7 @@ const App = () => {
       console.log("this is the searchResultsArray: ",searchResultsArray)
       setOgMovies([])
     console.log(ogMovies)
+
     // setEmptyResults(false)
     }
     
@@ -220,12 +231,14 @@ const filterRating =(rangeArray)=>{
     }
   })
   console.log(filteredByRange);
-  if(filteredByRange.length==0){
-    setOgMovies([])// Hey Joel this isnt working:(
-    alert("There is no movies that match your range!");
-  }else{
+  // if(filteredByRange.length==0){
+
+    // setOgMovies([])// Hey Joel this isnt working:(
+   // alert("There is no movies that match your range!");
+  // }else{
     setOgMovies(filteredByRange);
-  }
+   // console.log(ogMovies)
+  // }
   
  
   
