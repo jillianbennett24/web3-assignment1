@@ -6,7 +6,6 @@ import MovieSearch from './components/MovieSearch';
 import MovieBrowser from './components/MovieBrowser';
 import MovieDetails from './components/MovieDetails';
 import React, { useEffect, useState }  from "react";
-import { ToastContainer, toast } from 'react-toastify';
 
 
 const App = () => {
@@ -15,15 +14,8 @@ const App = () => {
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  // const [emptyResults, setEmptyResults] = useState(false)
-
-  // print out movies with exclamation marks or question marks in the overview
-  
-  JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
-      if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
-        console.log("punc movie",movie.title);
-      }
-    })
+  // const [emptyResults, setEmptyResults] = useState(false) 
+ 
   
 
   useEffect( ()=>{
@@ -39,7 +31,7 @@ const App = () => {
       }else{
         setIsFetching(true);
         // if we dont have data then we need to fetch it 
-        fetch("https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=200")
+        fetch("https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=300")
         .then(resp=>resp.json())
         .then(data=>{
           // using set timeout to simulate a longer loading time
@@ -303,8 +295,8 @@ return (
       <Header className="App-header" resetData={resetData}  />
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
-          <Route path="/" element={<MovieSearch searchForMovieTitle={searchForMovieTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
-          <Route path="movies" element={<MovieBrowser sampleMovie={ogMovies[1]} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="/" element={<MovieSearch searchForMovieTitle={filterTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
+          <Route path="movies" element={<MovieBrowser currentMovies={ogMovies} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 

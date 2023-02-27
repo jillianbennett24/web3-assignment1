@@ -41,7 +41,7 @@ const Filters = (props) => {
                         <option value="year">Year</option>
                         <option value="rating">Rating</option>
                     </select>
-                    {selectedFilter==="title"? <SearchTitleForm filterTitle={props.filterTitle}/> : null}
+                    {selectedFilter==="title"? <SearchTitleForm filterTitle={props.filterTitle} searchForMovieTitle={props.searchForMovieTitle}/> : null}
                     {/* {selectedFilter==="title" ? <SearchForm searchForMovieTitle={props.searchForMovieTitle} /> : null} */}
                     {selectedFilter==="genre" ?  <SelectForm movies={props.movies} onGenreSelect={props.onGenreSelect}/> : null}
                     {selectedFilter==="year" ?  <YearForm movies={props.movies} filterYear={props.filterYear}/> : null}

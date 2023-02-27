@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const MovieList = (props) => {
 const [activeSort, setActiveSort] = useState('title');
+const [noMatches, setNoMatches] = useState(false);
 
   const headerClickHandler = (e) => {
     console.log(e.target.textContent.toLowerCase())
@@ -14,7 +15,7 @@ const [activeSort, setActiveSort] = useState('title');
   }
  
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-4xl mx-auto">
     <table className="w-full divide-y divide-gray-200 bg-black bg-opacity-25">
       <thead className="sticky top-0 bg-black mx-auto bg-opacity-50">
           <tr>
@@ -33,7 +34,7 @@ const [activeSort, setActiveSort] = useState('title');
         } 
       </tbody>
     </table>
-    {(props.movies.length ==0) && <p>There is no valid movies based on your Search!</p>}
+    {/* {(props.movies.length ==0) && <p>There is no valid movies based on your Search!</p>} */}
     </div>
   );
 }

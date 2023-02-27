@@ -30,6 +30,9 @@ const MovieBrowser = (props) => {
             setEmptyResults(false)
         }
     }
+
+    // setEmptyResults(props.currentMovies.length)
+
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-repeat-y min-h-screen flex items-center justify-center">
             <div className="flex justify-center w-full">
@@ -41,7 +44,7 @@ const MovieBrowser = (props) => {
                                 <button className="bg-black text-gray-300 rounded-md p-2 opacity-40 hover:underline" onClick={toggleFilters}>Filters</button>
                             </div>}
                             <div className={`sticky top-0 w-full ransition-all duration-500 ease-in-out ${showFilters ? 'opacity-100' : 'opacity-0 -translate-x-full'}`}>
-                                <Filters  sampleMovie={props.sampleMovie} 
+                                <Filters  currentMovies={props.currentMovies} 
                                         filterTitle={props.filterTitle} 
                                         filterRating={props.filterRating} 
                                         filterYear={props.filterYear} 
@@ -53,13 +56,15 @@ const MovieBrowser = (props) => {
                                         />
                             </div>
                         </div>
-                        {console.log(emptyResults)}
-                        {checkIfEmptyArray}
+                        {/* {console.log(emptyResults)} */}
+                        {/* {checkIfEmptyArray} */}
+                        {/* <span>hello {!!props.currentMovies.length} ???</span> */}
+                        {emptyResults && <p>There are no matches based on your Search!</p>}
                         {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
                          {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4 flex flex-col items-center">
-                            <div className="sticky top-0">
+                            <div className="-top-6 z-10 fixed">
                                 {/* <button className="bg-black text-white rounded-md p-2" onClick={toggleFaves}>Toggle Faves</button> */}
                                 <div className="mt-8 transition-all duration-300 transform translate-x-10 group">
                                     <h2 onClick={toggleFaves}>
