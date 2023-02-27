@@ -2,7 +2,7 @@
   "name": "my-app",
   "homepage": "https://jillianbennett24.github.io/web3-assignment1/",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
