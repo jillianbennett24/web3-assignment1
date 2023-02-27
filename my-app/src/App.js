@@ -20,11 +20,11 @@ const App = () => {
 
   // print out movies with exclamation marks or question marks in the overview
   
-  JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
-      if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
-        console.log("punc movie",movie.title);
-      }
-    })
+  // JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
+  //     if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
+  //       console.log("punc movie",movie.title);
+  //     }
+  //   })
   
 
   useEffect( ()=>{
@@ -77,7 +77,7 @@ const App = () => {
         sortMovies(mdata, "title");
         console.log("rsettinhg data with mdata: ", mdata)
         setOgMovies(mdata);
-        setOgMovies(false); 
+        // setOgMovies(false); 
   }
 
   const searchForMovieTitle=(input)=>{
