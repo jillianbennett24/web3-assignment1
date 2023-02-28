@@ -14,29 +14,22 @@ const App = () => {
   const [searchValue, setSearchValue]=useState('');
   const [gSortList, setGSortList]=useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const [isEmpty,setIsEmpty]=useState(true);  // is empty is true 
-  
+  const [isEmpty,setIsEmpty]=useState(false);  // is empty is true 
 
-  // print out movies with exclamation marks or question marks in the overview
-  
-  // JSON.parse(localStorage.getItem("allMovies")).forEach(movie => {
-  //     if (movie.details.overview.includes("!") || movie.details.overview.includes("?")) {
-  //       console.log("punc movie",movie.title);
-  //     }
-  //   })
   
 
   useEffect( ()=>{
     if(ogMovies.length <= 0){
       // first retrieve from local storage 
       const temp = localStorage.getItem("allMovies");
+      // const temp = null
       // if it there?
       if(temp){
         let mdata = JSON.parse(temp);
         // mdata.sort((a,b)=>a.title.localeCompare(b.title));
         sortMovies(mdata, "title");
         setOgMovies(mdata);
-        setIsEmpty(false); 
+        // setIsEmpty(false); 
       }else{
         setIsFetching(true);
         // if we dont have data then we need to fetch it 
@@ -53,20 +46,14 @@ const App = () => {
           sortMovies(data, "title");
           // set to movie state 
           setOgMovies(data);
-          setIsEmpty(false);
+          // setIsEmpty(false);
           // setMovies(ogMovies); // jill added to test brain idk if its right spot
           
         })
         .catch(err => console.log(err))
       }
     }
-    // check if we have faves in session storage
-    // const tempFaves = JSON.parse(localStorage.getItem("faves"));
-    
-    // if(faves.length == 0 && tempFaves.length > 0){
-    //   setFaves(tempFaves);
-    // }
-  })
+  },[]) // empty array means only run once {{{  THIS LINE IS THE HOLY GRAIL OF THIS APP   }}}
 
   const resetData=()=>{
       // first retrieve from local storage 
@@ -77,24 +64,6 @@ const App = () => {
         console.log("rsettinhg data with mdata: ", mdata)
         setOgMovies(mdata);
         // setOgMovies(false); 
-  }
-
-  const searchForMovieTitle=(input)=>{
-    const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
-    const searchResultsArray = originalMovies.filter(movie => (movie.title).toString().toLowerCase().includes(input.toLowerCase()));
-    console.log("this is the searchResultsArray: ",searchResultsArray)
-    if(searchResultsArray.length===0){
-      console.log("og movies in search for movie titile :" , ogMovies);
-      setOgMovies(searchResultsArray)
-      // setEmptyResults(true)
-    }else{
-      console.log("this is the searchResultsArray: ",searchResultsArray)
-      setOgMovies([])
-    console.log(ogMovies)
-
-    // setEmptyResults(false)
-    }
-    
   }
   
   const sortMovies = (movies, sortType, reverse=false) => {    
@@ -152,18 +121,15 @@ const favHandler = (movieId) => {
 
 const onGenreSelect = (selected)=>{
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
-  //console.log("this is the ogMovies in onGenreSelect: " ,ogMovies);
+
   const moviesFilteredbyGenre = originalMovies.filter(movie=> { 
     if(movie.details.genres){ // if there is a movies genre array in the movie object 
-      //console.log(movie.details.genres) // prints out movie objects genres 
-      //console.log(movie.details.genres.some(genre=> genre.name == selected)) // prints a true or false if the movie object genre has the selected variable in it true if has false if not 
-      return(movie.details.genres.some(genre=> genre.name == selected))
+     return(movie.details.genres.some(genre=> genre.name == selected))
     }else{
-      //console.log(movie.details.genres)
       return(false) // no movie genres array in the movie object 
     }
   })
-  //console.log(moviesFilteredbyGenre) 
+  sortMovies(moviesFilteredbyGenre, "title");
   setOgMovies(moviesFilteredbyGenre)
 }
 
@@ -172,8 +138,7 @@ const filterYear= (compareOperator, year)=>{
   console.log("by the year:",year);
   const originalMovies = JSON.parse(localStorage.getItem("allMovies"));  // get the original Movies in an array 
   const moviesFilteredByYear= originalMovies.filter(movie=>{
-  //console.log(movie);
-  const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
+    const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
      console.log("the releaseDate of movie above is: ",releaseDateOfMovie)
      if(compareOperator == "After"){
        if(releaseDateOfMovie > year){
@@ -200,8 +165,10 @@ const filterYear= (compareOperator, year)=>{
      }
   })
   console.log(moviesFilteredByYear);
+  sortMovies(moviesFilteredByYear, "year");
   setOgMovies(moviesFilteredByYear);
 }
+
 const filterRating =(rangeArray)=>{
   console.log("this is range array in app",rangeArray);
   //if(rangeArray.length==0){alert("There is no movies that match your range!")}
@@ -231,55 +198,22 @@ const filterRating =(rangeArray)=>{
     }
   })
   console.log(filteredByRange);
-  // if(filteredByRange.length==0){
-
-    // setOgMovies([])// Hey Joel this isnt working:(
-   // alert("There is no movies that match your range!");
-  // }else{
-    setOgMovies(filteredByRange);
-   // console.log(ogMovies)
-  // }
-  
- 
+  sortMovies(filteredByRange, "rating");
+  setOgMovies(filteredByRange);
   
 }
-  // et moviesFilteredByYear=[];
-  // if(selectedVal == "Greater"){
-  //  moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) > selectedVal);
-  // }else{
-  //   moviesFilteredByYear = originalMovies.filter(movie=> parseInt(movie.release_date.slice(0,4)) < selectedVal);
-  // }
   
-  
-  
- 
-  // // filter the original movies 
-  // const moviesFilteredByYear= originalMovies.filter(movie=>{
-  //   console.log(movie);
-  //   const releaseDateOfMovie= parseInt(movie.release_date.slice(0,4))
-  //   console.log("the releaseDate of movie above is: ",releaseDateOfMovie)
-  //   if(selectedVal == "Greater"){
-  //     if(releaseDateOfMovie > selectedVal){
-       
-  //     }
-  //   }
-  // }
-
-  // )
-  // if
-
   const filterTitle=(searchedTitle)=>{
     const originalMovies = JSON.parse(localStorage.getItem("allMovies"));
     const searchTitleArray = originalMovies.filter(movie => {
-      console.log(searchedTitle)
       if((movie.title).toString().toLowerCase().includes(searchedTitle.toLowerCase())){
-        console.log(movie.title);
         return(true);
       }else{
         return(false);
       }
     })
     console.log(searchTitleArray);
+    sortMovies(searchTitleArray, "title");
     setOgMovies(searchTitleArray);
   }
 
@@ -308,8 +242,8 @@ return (
       <Header className="App-header" resetData={resetData}  />
       {/* <ToastContainer key="toast-container" position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/> */}
       <Routes>
-          <Route path="/" element={<MovieSearch searchForMovieTitle={filterTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
-          <Route path="movies" element={<MovieBrowser currentMovies={ogMovies} movies={ogMovies} sortMovies={sortMovies} searchForMovieTitle={searchForMovieTitle} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating}/>} />
+          <Route path="/" element={<MovieSearch filterTitle={filterTitle} resetData={resetData} isLoading={isFetching} setIsLoading={setIsFetching} />} />
+          <Route path="movies" element={<MovieBrowser currentMovies={ogMovies} movies={ogMovies} sortMovies={sortMovies} filterTitle={filterTitle} filterYear={filterYear} resetData={resetData} favHandler={favHandler} faves={faves} onGenreSelect={onGenreSelect} filterRating={filterRating} />} />
           <Route path="movie/:movieId" element={<MovieDetails movies={ogMovies} faves={faves} favHandler={favHandler} addUserRating={addUserRating}/>} />
           {/* <Route path="/:movieId" element={<MovieDetails ={ogMovies[1]} />} /> */}
       </Routes> 

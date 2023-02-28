@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MovieList from "./MovieList";
 import FavoritesList from "./FavoritesList";
 import Filters from "./Filters";
 
 const MovieBrowser = (props) => {
-    const [emptyResults, setEmptyResults]=React.useState(false);
+    // const [emptyResults, setEmptyResults]= useState(false);
     const [showFaves, setShowFaves] = useState(true);
     const [showFilters, setShowFilters] = useState(true);
     const [showFilterButton, setShowFilterButton] = useState(false);
+
+    // useEffect(() => {
+
+    //     if(props.movies.length==0){
+    //         setEmptyResults(true)
+    //         console.log("The movie props is empty ")
+    //     }else{
+    //         setEmptyResults(false)
+    //     }
+    // console.log('empty results',emptyResults)
+    // }, [props.movies])
 
     const toggleFaves = () => {
         setShowFaves(!showFaves);
@@ -21,18 +32,18 @@ const MovieBrowser = (props) => {
         }, 500);
     }
 
-    const checkIfEmptyArray=()=>{
-        if(props.movies.length==0){
-           setEmptyResults(true)
-           return (<p>No movies found</p>)
-           // console.log("The movie props is empty ")
-            //return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
-        }else{
+    // const checkIfEmptyArray=()=>{
+    //     if(props.movies.length==0){
+    //        setEmptyResults(true)
+    //        return (<p>No movies found</p>)
+    //        // console.log("The movie props is empty ")
+    //         //return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
+    //     }else{
 
-            setEmptyResults(false)
-            return( !emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} /> )
-        }
-    }
+    //         setEmptyResults(false)
+    //         return( !emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} /> )
+    //     }
+    // }
 
     // setEmptyResults(props.currentMovies.length)
 
@@ -63,8 +74,8 @@ const MovieBrowser = (props) => {
                         {/* {console.log(emptyResults)} */}
                         {/* {checkIfEmptyArray} */}
                         {/* <span>hello {!!props.currentMovies.length} ???</span> */}
-                        {emptyResults && <p>There are no matches based on your Search!</p>}
-                        {!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
+                        {props.isEmpty && <p>There are no matches based on your Search!</p>}
+                        {!props.isEmpty && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
                          {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
                         {/* </div> */}
                         <div className="min-w-1/12 pl-4 flex flex-col items-center">

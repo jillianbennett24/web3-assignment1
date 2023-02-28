@@ -40,7 +40,7 @@ const MovieSearch = (props) => {
                                         Browse All
                                     </button>
                                 </Link>
-                                <SearchForm searchForMovieTitle={props.searchForMovieTitle} />
+                                <SearchForm filterTitle={props.filterTitle} />
                                
                             </div>
                         </div>}

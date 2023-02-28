@@ -5,7 +5,7 @@ const searchInput = React.createRef() //this is the react equivalent to query se
 const SearchForm =(props)=>{
     const doSearch=()=>{
        console.log('Searching for:', searchInput.current.value);
-       props.searchForMovieTitle(searchInput.current.value);
+       props.filterTitle(searchInput.current.value);
     }
     return(
         // <div>

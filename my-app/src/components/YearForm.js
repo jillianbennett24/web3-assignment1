@@ -10,15 +10,12 @@ const YearForm =(props)=>{
         placeholder: "Year",
         className: "w-16 border-2 border-slate-400 rounded-md p-2 mb-2",
         width: "20px",
-        borderRadius: "4px",
+        borderadius: "4px",
     }
 
    const onClick=()=>{
     props.filterYear(selectValue,year);
    }
-//   useEffect( () => {
-
-//   })
   
     return(
         <div className="flex flex-col items-center">
