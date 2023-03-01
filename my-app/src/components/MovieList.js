@@ -1,20 +1,17 @@
 import MovieListItem from './MovieListItem';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const MovieList = (props) => {
-const [activeSort, setActiveSort] = useState('title');
-const [noMatches, setNoMatches] = useState(false);
+  //set default sort to title
+  const [activeSort, setActiveSort] = useState('title');
 
+  // sort movies based on which table column was clicked
   const headerClickHandler = (e) => {
-    console.log(e.target.textContent.toLowerCase())
     const sortType = e.target.textContent.toLowerCase();
-    console.log(props)
     props.sortMovies(props.movies, sortType);
     setActiveSort(sortType);
   }
 
- 
  
   return (
     <div className="max-w-4xl mx-auto">
@@ -29,6 +26,7 @@ const [noMatches, setNoMatches] = useState(false);
             <th className="px-6 py-3 w-1/6 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">Fave</th>
           </tr>
       </thead>
+      {/* // only render tbody if there are movies to display */}
       {props.movies.length>0 && 
       <tbody className="bg-white divide-y divide-gray-200 ">
         {props.movies.map((movie) => {
@@ -38,6 +36,7 @@ const [noMatches, setNoMatches] = useState(false);
       </tbody>
       }
     </table>
+    {/* // if no movies match search, display message */}
     {(props.movies.length ==0) && <p className='bg-white p-6 rounded-md mt-20 font-bold'>No matches found!</p>}
     </div>
   );
