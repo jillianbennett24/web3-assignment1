@@ -24,7 +24,6 @@ const Header = (props) => {
             About
           </span>
         </button>
-  
       </div>
       <ToastContainer />
     </header>

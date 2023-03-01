@@ -4,21 +4,10 @@ import FavoritesList from "./FavoritesList";
 import Filters from "./Filters";
 
 const MovieBrowser = (props) => {
-    // const [emptyResults, setEmptyResults]= useState(false);
     const [showFaves, setShowFaves] = useState(true);
     const [showFilters, setShowFilters] = useState(true);
     const [showFilterButton, setShowFilterButton] = useState(false);
 
-    // useEffect(() => {
-
-    //     if(props.movies.length==0){
-    //         setEmptyResults(true)
-    //         console.log("The movie props is empty ")
-    //     }else{
-    //         setEmptyResults(false)
-    //     }
-    // console.log('empty results',emptyResults)
-    // }, [props.movies])
 
     const toggleFaves = () => {
         setShowFaves(!showFaves);
@@ -26,26 +15,11 @@ const MovieBrowser = (props) => {
 
     const toggleFilters = () => {
         setShowFilters(!showFilters);
-        
+        // separate state to manage the show filters button so that it can be delayed for animation purposes        
         setTimeout(() => {
             setShowFilterButton(!showFilterButton)
         }, 500);
     }
-
-    // const checkIfEmptyArray=()=>{
-    //     if(props.movies.length==0){
-    //        setEmptyResults(true)
-    //        return (<p>No movies found</p>)
-    //        // console.log("The movie props is empty ")
-    //         //return(!emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />)
-    //     }else{
-
-    //         setEmptyResults(false)
-    //         return( !emptyResults && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} /> )
-    //     }
-    // }
-
-    // setEmptyResults(props.currentMovies.length)
 
     return (
         
@@ -54,6 +28,7 @@ const MovieBrowser = (props) => {
                 <div className="w-screen px-4">
                     <div className="flex">
                         <div className="w-2/12 pr-4 mt-4">
+                            {/* // show filters button only when filters are hidden */}
                             {showFilterButton && 
                             <div className="sticky top-0">
                                 <button className="bg-black text-gray-300 rounded-md p-2 opacity-40 hover:underline" onClick={toggleFilters}>Filters</button>
@@ -71,16 +46,9 @@ const MovieBrowser = (props) => {
                                         />
                             </div>
                         </div>
-                        {/* {console.log(emptyResults)} */}
-                        {/* {checkIfEmptyArray} */}
-                        {/* <span>hello {!!props.currentMovies.length} ???</span> */}
-                        {props.isEmpty && <p>There are no matches based on your Search!</p>}
-                        {!props.isEmpty && <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />} 
-                         {/* <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies}/> */}
-                        {/* </div> */}
+                        <MovieList movies={props.movies} faves={props.faves} favHandler={props.favHandler} sortMovies={props.sortMovies} />
                         <div className="min-w-1/12 pl-4 flex flex-col items-center">
                             <div className="-top-6 z-10 fixed">
-                                {/* <button className="bg-black text-white rounded-md p-2" onClick={toggleFaves}>Toggle Faves</button> */}
                                 <div className="mt-8 transition-all duration-300 transform translate-x-10 group">
                                     <h2 onClick={toggleFaves}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 mx-auto hover:cursor-pointer text-green-500 group-hover:scale-125">
