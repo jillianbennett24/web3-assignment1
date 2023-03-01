@@ -9,43 +9,41 @@ import { HiX } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import StarRatings from 'react-star-ratings';
-import FavoritesList from './FavoritesList';
-
 
 
 const MovieDetails = (props) => {
+  //get movie id from url parameters
   const movieId = parseInt(useParams().movieId)
-  console.log(movieId)
-  console.log(props)
+  //find movie in movies array
   const movie = props.movies.find(m => m.id == movieId)
-  console.log(movie)
   const posterUrl = `https://image.tmdb.org/t/p/w342/${movie.poster}`
   const backdropUrl = `https://image.tmdb.org/t/p/w1280${movie.backdrop}`
   const [userRatingModalIsOpen, setUserRatingModalIsOpen] = React.useState(false);
   const [userRating, setUserRating] = React.useState(movie.ratings.userRating || 0);
   const [posterExists, setPosterExists] = React.useState(true);
   const [posterModalIsOpen, setPosterModalIsOpen] = React.useState(false);
+  // logarithmic scale used for popularity meter
   const logarithmicPopularity = (3000 * Math.log10(movie.ratings.popularity)) / 100
-  console.log('logarithmicPopularity',logarithmicPopularity)
-  const scrubbedOverview = movie.details.overview.replace(/[^a-zA-Z0-9.,'’‘“”?!-:;()/\s]/g, '') // scrubbing encoding issues
+  // scrubbing encoding issues from overview field
+  const scrubbedOverview = movie.details.overview.replace(/[^a-zA-Z0-9.,'’‘“”?!-:;()/\s]/g, '') 
 
   const openUserRatingModal = () => {
     setUserRatingModalIsOpen(true);
   }
 
+  //set user rating in original data and close modal
   const closeUserRatingModal = () => {
-    console.log('userRating',userRating)
-    movie.ratings['userRating'] = userRating
-    console.log('movie with user rating added',movie)
+    // movie.ratings['userRating'] = userRating
     props.addUserRating(movieId, userRating)
     setUserRatingModalIsOpen(false);
   }
 
+  //set user rating in state
   const ratingHandler = (userRating) => {
-    // console.log('userRating',userRating)
     setUserRating(userRating);
   }
 
+  // user rating modal styles
   const modalStyles = {
     content: {
       top: '50%',
@@ -69,12 +67,15 @@ const MovieDetails = (props) => {
     setPosterModalIsOpen(false);
   }
 
+  // set/remove movie to favorites when heart is clicked
   const favClickHandler = (e) => {
     e.stopPropagation();
     props.favHandler(movieId);
   }
 
+  // if no poster image at url, set posterExists to false
   const onImageError = (e) => {
+    //prevents infinite loop
     e.target.onerror = null
     setPosterExists(false)
   }
@@ -88,6 +89,7 @@ const MovieDetails = (props) => {
             <HiX size={48} className="text-white bg-black opacity-20 hover:opacity-100 hover:bg-red-600 rounded-md"/>
           </button>
         </Link>
+        {/* // if poster exists, display it */}
         {posterExists && 
           <img className='h-full hover:cursor-pointer' src={posterUrl} title={movie.title} alt={movie.title} onError={onImageError} onClick={openPosterModal}/>
           }
@@ -132,6 +134,7 @@ const MovieDetails = (props) => {
                 <button onClick={openUserRatingModal} className='bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-2 rounded-full border-solid border-white border-2 mb-2'>
                   {!userRating ? "Add Rating" : "Change Rating"}
                 </button>
+                {/* user rating modal */}
                 <Modal isOpen={userRatingModalIsOpen} onRequestClose={closeUserRatingModal} style={modalStyles} ariaHideApp={false}>
                   <div className='text-center my-4'>
                     <h2>Rate {movie.title}</h2>
@@ -151,6 +154,7 @@ const MovieDetails = (props) => {
                   Submit
                 </button>
                 </Modal>
+                {/* view poster modal */}
                 <Modal isOpen={posterModalIsOpen} onRequestClose={closePosterModal} style={modalStyles} ariaHideApp={false}>
                   <div className='text-center my-4'>
                     <img className='h-full' src={posterUrl} title={movie.title} alt={movie.title} onError={onImageError} />
@@ -161,6 +165,7 @@ const MovieDetails = (props) => {
                   </Modal>
             </div>
           </div>
+          {/* IMDB and TMDB links */}
           <div className='flex justify-between mb-4 mx-60 mt-5'>
             <a className='underline font-bold' href={`https://www.imdb.com/title/${movie.imdb_id}`} target='_blank'>
               <img src={imdbLogo} alt="IMDB" title="IMDB Logo" className='w-12 h-6'/>
@@ -170,7 +175,6 @@ const MovieDetails = (props) => {
             </a>
           </div>
         </div>
-        
       </div>
     </div>
   );
