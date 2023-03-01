@@ -4,11 +4,9 @@ const SearchTitleForm =(props)=>{
     const [searchTitle, setSearchTitle]=useState('')
 
     const clicked =()=>{
-        console.log("you clicked the button!")
-        console.log(searchTitle);
         props.filterTitle(searchTitle);
-        // props.searchForMovieTitle(searchTitle);
     }
+    
     return(
         <div>
              <input name="searchInput" 
