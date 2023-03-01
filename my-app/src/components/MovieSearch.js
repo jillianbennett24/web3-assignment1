@@ -5,19 +5,6 @@ import SearchForm from './SearchForm';
 import loadingGif from '../1_e_Loq49BI4WmN7o9ItTADg.gif'
 
 const MovieSearch = (props) => {
-    const [effect, setEffect] = useState(false);
-    console.log('MovieSearch props',props)
-  
-    
-    // useEffect(() => {
-    //     props.resetData();
-    // }, [props.resetData]);
-
-    // if(props.setIsLoading(true)){
-    //     setTimeout(() => {
-    //         props.setIsLoading(false);
-    //     }, 3000);
-    // }
     
     return (
         <div className="bg-[url('/res/pramod-tiwari-PIH_WAzHeIo-unsplash.jpg')] bg-cover min-h-screen">
@@ -25,6 +12,7 @@ const MovieSearch = (props) => {
             <div className="container mx-auto h-[48rem] max-h-[700px]">
                 <div className="flex flex-row flex-wrap py-4 h-full">
                     <aside className="w-full sm:w-1/3 md:w-1/4 px-2 bg-black bg-opacity-40 rounded-md">
+                        {/* // display regular home view when not fetching movie data */}
                         {!props.isLoading && 
                         <div className="sticky top-0 p-4 w-full">
                             {/* <!-- navigation --> */}
@@ -41,9 +29,9 @@ const MovieSearch = (props) => {
                                     </button>
                                 </Link>
                                 <SearchForm filterTitle={props.filterTitle} />
-                               
                             </div>
                         </div>}
+                        {/* // display loading gif when fetching movie data */}
                         {props.isLoading && 
                         <div>
                             <img src={loadingGif} title={loadingGif} alt={'Fetching Data...'} className="opacity-40 w-full"/>
@@ -51,16 +39,16 @@ const MovieSearch = (props) => {
                         </div>}
                     </aside>
                     <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
-                        {/* <!-- content area --> */}
+                        
                     </main>
                 </div>
             </div>
+            {/* // background photo credit */}
             <footer className="mt-auto">
                 <p className="text-slate-400"> 
                 Photo by <a href="https://unsplash.com/@pramodtiwari?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pramod Tiwari</a> on <a href="https://unsplash.com/photos/PIH_WAzHeIo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
                 </p>
             </footer>
-            
         </div>
     )};
 
