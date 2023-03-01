@@ -6,6 +6,7 @@ const YearForm =(props)=>{
     const [year, setYear] = useState('');
     const [selectValue, setSelectValue] = React.useState('');
     
+    // styling for Datetime component
     const datetimeProps = {
         placeholder: "Year",
         className: "w-16 border-2 border-slate-400 rounded-md p-2 mb-2",
@@ -26,10 +27,8 @@ const YearForm =(props)=>{
                     <option value="Before">Before</option>
                     <option value="After">After</option>
                 </select>
-               
                 <Datetime dateFormat="YYYY" timeFormat={false} onChange={(date) => {setYear(date.year())}}  inputProps={datetimeProps}/>
             </div>
-            {/* <h5>You selected {selectValue} year: {year}</h5> */}
             <button type="button" 
                 className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 border-b-4 border-blue-600 hover:border-blue-700 rounded-md mt-4 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out focus:shadow-lg focus:outline-none focus:ring-0 " 
                 onClick={onClick}> 

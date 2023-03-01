@@ -1,8 +1,7 @@
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Toast = () => {
-    
+// html content for 'About' Toast
+export const Toast = () => {    
     
     return (
         <div className="text-center py-2">
